@@ -1,24 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import Collumns from "./components/Collumns/Collumns";
+import "./App.css";
+import Header from "./components/Header";
+
+const mass = [
+    {
+      "title": "TODO",
+      "content": [],
+    },
+    {
+      "title": "In Progress,",
+      "content": []
+    },
+    {
+      "title": "Testing",
+      "content": []
+    },
+    {
+      "title": "Done",
+      "content": []
+    }
+  ];
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header/>
+      <div>
+        <div className="board-container">
+          <span className="board-container__title">
+            <p>Trello in React</p>
+          </span>
+          <div className="container-collumns">
+          {mass.map((item, index) => (
+            <Collumns title={item.title}/>
+          )
+          )}
+          
+          </div>
+          {/* {mass.map((item, index) => {
+            console.log(item.title);
+            
+            <Collumns title={item.title}/>
+          })} */}
+          
+        </div>
+      </div>
     </div>
   );
 }
