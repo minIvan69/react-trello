@@ -1,25 +1,23 @@
 import styled from "styled-components";
 
 export const ContainerCollumns = styled.div`
+max-width: 300px;
+    width: 100%;
 display: flex;
 flex-direction: row;
 flex-wrap: nowrap;
+margin-left: 20px;
+
+&:first-child {
+    margin:0;
+}
 `
 
 export const CollumnsBlock = styled.div`
 height: 50vh;
-width: 300px;
+width: 100%;
 background-color: antiquewhite;
 border-radius: 5px;
-margin: 0 20px;
-
-&:first-child{
-    margin-left: 0;
-}
-
-&:last-child{
-    margin-left: 0;
-}
 `
 
 export const HeaderBlock = styled.div`
