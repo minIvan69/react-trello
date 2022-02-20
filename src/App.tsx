@@ -5,10 +5,9 @@ import AppWrapper from "./components/AppWrapper";
 import ModalCard from "./components/ModalCard";
 import { useCookies } from "react-cookie";
 
-const [cookies] = useCookies(["authName"]);
-const [authName, setAuthName] = useState(cookies.authName);
-
 function App() {
+  const [cookies] = useCookies(["authName"]);
+  const [authName, setAuthName] = useState(cookies.authName);
   return (
     <AppWrapper>
       <Header />
