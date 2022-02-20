@@ -1,0 +1,1 @@
+export {initialCollumnsState} from "./data"

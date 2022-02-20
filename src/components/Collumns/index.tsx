@@ -1,5 +1,7 @@
-import React, { FunctionComponent } from "react";
-import Card from "../Card/index";
+import React, { FunctionComponent, useState } from "react";
+import { ICard } from "../../interfaces/interfaces";
+import Card from "../Card";
+import { ICollumnProps } from "./interfaces";
 import {
   CollumnsBlock,
   ContainerCollumns,
@@ -9,11 +11,21 @@ import {
   Option,
 } from "./styles";
 
-interface IColumnProps {
-  title: string;
-}
+const Collumns: FunctionComponent<ICollumnProps> = ({
+  colId,
+  title,
+  setCardId,
+  changeTitle,
+  cards,
+  getCards,
+  addCard,
+  comments,
+  getCommentsById,
+}) => {
+  const [localCards, setLocalCards] = useState<ICard[]>(() =>
+    getCards(colId, cards)
+  );
 
-const Collumns: FunctionComponent<IColumnProps> = ({ title }) => {
   return (
     <ContainerCollumns>
       <CollumnsBlock>
@@ -22,7 +34,16 @@ const Collumns: FunctionComponent<IColumnProps> = ({ title }) => {
           <Option>Optin</Option>
         </HeaderBlock>
         <Content>
-          <Card />
+          {localCards.map((item) => (
+            <Card
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              setCardId={setCardId}
+              getComments={getCommentsById}
+              comments={comments}
+            />
+          ))}
         </Content>
       </CollumnsBlock>
     </ContainerCollumns>
