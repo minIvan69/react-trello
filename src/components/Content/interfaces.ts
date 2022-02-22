@@ -1,4 +1,3 @@
 export interface IContentProps {
-    authName: string
-  }
-  
+  authName: string;
+}

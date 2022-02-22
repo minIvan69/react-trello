@@ -1,6 +1,7 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { ICard } from "../../interfaces/interfaces";
 import Card from "../Card";
+import EditComponent from "../EditComponent";
 import { ICollumnProps } from "./interfaces";
 import {
   CollumnsBlock,
@@ -9,6 +10,9 @@ import {
   HeaderBlock,
   Title,
   Option,
+  AddCardText,
+  StyledImg,
+  AddCard,
 } from "./styles";
 
 const Collumns: FunctionComponent<ICollumnProps> = ({
@@ -22,16 +26,53 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
   comments,
   getCommentsById,
 }) => {
+  const [inputValue, setInputValue] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
   const [localCards, setLocalCards] = useState<ICard[]>(() =>
     getCards(colId, cards)
   );
+
+  useEffect(() => {
+    setLocalCards(() => getCards(colId, cards));
+  }, [cards]);
+
+  const onAddCard = () => {
+    addCard(colId);
+  };
+
+  const onClickTitle = () => {
+    setIsEdit(true);
+  };
+
+  const onEditInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const onSubmitEdit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    changeTitle(colId, inputValue);
+    setIsEdit(false);
+    resetInputValue();
+  };
+
+  const resetInputValue = () => {
+    setInputValue("");
+  };
 
   return (
     <ContainerCollumns>
       <CollumnsBlock>
         <HeaderBlock>
-          <Title>{title}</Title>
-          <Option>Optin</Option>
+          {isEdit ? (
+            <EditComponent
+              onSubmitForm={onSubmitEdit}
+              onEditInput={onEditInput}
+              setIsEdit={setIsEdit}
+              inputValue={inputValue}
+            />
+          ) : (
+            <Title onClick={onClickTitle}>{title}</Title>
+          )}
         </HeaderBlock>
         <Content>
           {localCards.map((item) => (
@@ -44,6 +85,11 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
               comments={comments}
             />
           ))}
+
+          <AddCard>
+            <AddCardText>Add card</AddCardText>
+            <StyledImg src="img/plus-svg.svg" onClick={onAddCard} />
+          </AddCard>
         </Content>
       </CollumnsBlock>
     </ContainerCollumns>

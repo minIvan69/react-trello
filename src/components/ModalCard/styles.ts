@@ -1,79 +1,106 @@
 import styled from "styled-components";
 
-export const StyledModal = styled.div`
-position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: auto;
-    outline: 0;
-    background: rgba(0,0,0, 0.7);
-    -webkit-overflow-scrolling: touch;
-    z-index: 1000;
+export const StyledModalCard = styled.div`
+  margin-top: 60px;
+  position: absolute;
+  z-index: 99999;
+  height: 800px;
+  width: 1000px;
+  background-color: #f4f5f7;
+  padding: 20px;
+  opacity: 1;
+  border-radius: 4px;
+`;
 
-`
+export const StyledText = styled.div`
+  padding: 10px;
+  font-size: 1.1em;
+  text-align: justify;
+  background-color: #fff;
+  width: 100%;
+  height: fit-content;
+  border-radius: 5px;
+  border: 1px #b2b5bb solid;
+  color: #3e3e41;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 export const Container = styled.div`
-margin-top: 100px;
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 800px;
-  max-width: 100%;
-background: black;
-height: 1700px;
-max-height: 100%;
-border-radius: 7px;
-overflow: auto;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
-`
+export const EditText = styled.div`
+  color: #172b4d;
+  margin-top: 10px;
+  text-decoration: underline;
+  width: fit-content;
 
-export const Content = styled.div`
-display:flex;
-flex-direction: column;
-flex-wrap: nowrap;
-background-color: #f4f5f7;
-padding: 40px
+  &:hover {
+    cursor: pointer;
+    text-decoration: none;
+  }
+`;
 
-`
+export const DeleteCard = EditText;
 
-export const ContainerPanel = styled.div`
-display:flex;
+export const CardTitle = styled.h3`
+  color: #172b4d;
+  padding: 10px 0;
+`;
 
-`
+export const CardData = styled.div`
+  margin-top: 20px;
+`;
 
-export const PanelText = styled.div`
-min-height: 100vh;
-width: 100%;
-background: beige;
-`
+export const StyledImg = styled.img`
+  &:hover {
+    cursor: pointer;
+  }
+  height: 20px;
+`;
 
-export const Actions = styled.div`
-min-height: 100vh;
-width: 200px;
-background: yellow;
-`
+export const StyledImgDeleteComment = styled.img`
+  &:hover {
+    cursor: pointer;
+  }
+  height: 20px;
+  margin-left: 10px;
+  transform: translateY(9px);
+`;
 
-export const Header = styled.div`
-height: 100px;
-background: beige;
-`
-export const Title = styled.div`
+export const DeleteComment = styled.div``;
 
-`
+export const CardHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const CardComments = styled.div`
+  width: 100%;
+`;
+
+export const CommentAuthor = styled.div`
+  margin-bottom: 3px;
+  font-size: 1.05em;
+  font-weight: 600;
+`;
 
 export const CardAuthor = styled.div`
+  font-size: 1.2em;
+  font-weight: 600;
+`;
 
-`
-export const Description = styled.div`
-
-`
-
-export const Input = styled.div`
-height: 100px;
-background: #fff;
-border-radius: 15px;
-`
-
-
+export const CommentsContainer = styled.div`
+  &:first-child {
+    margin-top: 0;
+  }
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;

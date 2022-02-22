@@ -9,6 +9,7 @@ import Collumns from "../Collumns";
 import { IContentProps } from "./interfaces";
 import { initialCollumnsState } from "../../data";
 import { BoardContent, Title, ContainerCollumns, Container } from "./styles";
+import ModalCard from "../ModalCard";
 
 const Content: FunctionComponent<IContentProps> = ({ authName }) => {
   const [cardId, setCardId] = useState<number | undefined>(undefined);
@@ -51,40 +52,145 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
     localStorage.setItem("columns", JSON.stringify(newObj));
   };
 
-  const addCard = (colId: number) => {};
+  const changeTitleCard = (id: number, title: string) => {
+    const newObjData = cards.map((item) => {
+      if (item.id === id) {
+        item.title = title;
+      }
+      return item;
+    });
+    setCards(newObjData);
+    localStorage.setItem(LOCALSTORAGE_KEYS.cards, JSON.stringify(newObjData));
+
+    const newObjCards = cards.map((item) => {
+      if (item.id === id) {
+        item.title = title;
+      }
+      return item;
+    });
+    setCards(newObjCards);
+    localStorage.setItem(LOCALSTORAGE_KEYS.cards, JSON.stringify(newObjCards));
+  };
+
+  const changeCardData = (id: number, newData: string) => {
+    const newObj = cards.map((item) => {
+      if (item.id === id) {
+        item.data = newData;
+      }
+      return item;
+    });
+
+    setCards(newObj);
+    localStorage.setItem(LOCALSTORAGE_KEYS.cards, JSON.stringify(newObj));
+  };
+
+  const deleteCard = (id: number) => {
+    const itemToDelete = cards.find((item) => item.id === id);
+    const newObj = cards.filter((item) => item !== itemToDelete);
+
+    setCards(newObj);
+    localStorage.setItem(LOCALSTORAGE_KEYS.cards, JSON.stringify(newObj));
+  };
+
+  const changeComment = (id: number, newComment: string) => {
+    const newObj = comments.map((item) => {
+      if (item.id === id) {
+        item.comment = newComment;
+      }
+      return item;
+    });
+
+    setComments(newObj);
+    localStorage.setItem("comments", JSON.stringify(newObj));
+  };
+
+  const deleteComment = (id: number) => {
+    const itemToDelete = comments.find((item) => item.id === id);
+    const newObj = comments.filter((item) => item !== itemToDelete);
+
+    setComments(newObj);
+    localStorage.setItem("comments", JSON.stringify(newObj));
+  };
+
+  const addCard = (colId: number) => {
+    const newObj: ICard = {
+      id: cards.length + 1,
+      columnId: colId,
+      title: "default title",
+      data: "",
+      author: authName,
+    };
+
+    setCards([...cards, newObj]);
+    localStorage.setItem(
+      LOCALSTORAGE_KEYS.cards,
+      JSON.stringify([...cards, newObj])
+    );
+  };
+
+  const addComment = (cardId: number, comment: string) => {
+    const newComment: ICommentsData = {
+      id: new Date().getMilliseconds(),
+      cardId: cardId,
+      name: authName,
+      comment: comment,
+    };
+
+    setComments((prevState) => [...prevState, newComment]);
+    localStorage.setItem("comments", JSON.stringify([...comments, newComment]));
+  };
 
   const getCommentsById = (id: number, comments: ICommentsData[]) => {
-    return comments.filter((item) => item.cardId == id);
+    return comments.filter((item) => item.cardId === id);
   };
 
   const getCardsById = (id: number, cards: ICard[]) => {
-    return cards.filter((item) => item.columnId == id);
+    return cards.filter((item) => item.columnId === id);
   };
 
   const getCardsDataById = (id: number, cards: ICard[]) => {
-    return cards.filter((item) => item.id == id);
+    return cards.filter((item) => item.id === id);
   };
 
   return (
-    <Container>
-      <Title>Trello in React</Title>
-      <ContainerCollumns>
-        {collumns.map((item) => (
-          <Collumns
-            key={item.columnId}
-            title={item.title}
-            colId={item.columnId}
-            cards={cards}
-            setCardId={setCardId}
-            changeTitle={changeTitle}
-            getCards={getCardsById}
-            addCard={addCard}
-            comments={comments}
-            getCommentsById={getCommentsById}
-          />
-        ))}
-      </ContainerCollumns>
-    </Container>
+    <>
+      <Container>
+        <Title>Trello in React</Title>
+        <ContainerCollumns>
+          {collumns.map((item) => (
+            <Collumns
+              key={item.columnId}
+              title={item.title}
+              colId={item.columnId}
+              cards={cards}
+              setCardId={setCardId}
+              changeTitle={changeTitle}
+              getCards={getCardsById}
+              addCard={addCard}
+              comments={comments}
+              getCommentsById={getCommentsById}
+            />
+          ))}
+        </ContainerCollumns>
+      </Container>
+      {cardId && (
+        <ModalCard
+          cardId={cardId}
+          setId={setCardId}
+          cards={cards}
+          comments={comments}
+          columns={collumns}
+          getComments={getCommentsById}
+          getCardData={getCardsDataById}
+          changeTitle={changeTitleCard}
+          changeData={changeCardData}
+          deleteCard={deleteCard}
+          changeComment={changeComment}
+          deleteComment={deleteComment}
+          addComment={addComment}
+        />
+      )}
+    </>
   );
 };
 
