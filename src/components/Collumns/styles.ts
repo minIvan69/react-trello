@@ -32,12 +32,17 @@ export const Title = styled.div``;
 
 export const Content = styled.div`
   padding: 0 5px;
+  height: 100%;
 `;
 export const ContentCard = styled.div`
-  height: 30px;
+  height: 50px;
   background: #ffff;
   border-radius: 10px;
   padding: 10px;
+
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
 `;
 
 export const AddCard = styled.div`

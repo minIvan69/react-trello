@@ -2,22 +2,19 @@ import React, { FunctionComponent, useState } from "react";
 import { LOCALSTORAGE_KEYS } from "../../constants";
 import {
   ICard,
-  ICollumnData,
+  ICollumnStorage,
   ICommentsData,
 } from "../../interfaces/interfaces";
 import Collumns from "../Collumns";
 import { IContentProps } from "./interfaces";
 import { initialCollumnsState } from "../../data";
 import { BoardContent, Title, ContainerCollumns, Container } from "./styles";
-import ModalCard from "../ModalCard";
 
 const Content: FunctionComponent<IContentProps> = ({ authName }) => {
-  const [cardId, setCardId] = useState<number | undefined>(undefined);
-
   const localCollumns = JSON.parse(
     localStorage.getItem(LOCALSTORAGE_KEYS.columns) as string
   );
-  const [collumns, setCollumns] = useState<ICollumnData[]>(
+  const [collumns, setCollumns] = useState<ICollumnStorage[]>(
     localCollumns === null ? initialCollumnsState : localCollumns
   );
   localStorage.setItem(LOCALSTORAGE_KEYS.columns, JSON.stringify(collumns));
@@ -112,22 +109,6 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
     localStorage.setItem("comments", JSON.stringify(newObj));
   };
 
-  const addCard = (colId: number) => {
-    const newObj: ICard = {
-      id: cards.length + 1,
-      columnId: colId,
-      title: "default title",
-      data: "",
-      author: authName,
-    };
-
-    setCards([...cards, newObj]);
-    localStorage.setItem(
-      LOCALSTORAGE_KEYS.cards,
-      JSON.stringify([...cards, newObj])
-    );
-  };
-
   const addComment = (cardId: number, comment: string) => {
     const newComment: ICommentsData = {
       id: new Date().getMilliseconds(),
@@ -157,39 +138,23 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
       <Container>
         <Title>Trello in React</Title>
         <ContainerCollumns>
-          {collumns.map((item) => (
+          {collumns.map((item, key) => (
             <Collumns
-              key={item.columnId}
+              key={key}
               title={item.title}
               colId={item.columnId}
               cards={cards}
-              setCardId={setCardId}
-              changeTitle={changeTitle}
+              authName={authName}
+              // setCardId={setCardId}
+              // changeTitle={changeTitle}
               getCards={getCardsById}
-              addCard={addCard}
-              comments={comments}
-              getCommentsById={getCommentsById}
+              // addCard={addCard}
+              // comments={comments}
+              // getCommentsById={getCommentsById}
             />
           ))}
         </ContainerCollumns>
       </Container>
-      {cardId && (
-        <ModalCard
-          cardId={cardId}
-          setId={setCardId}
-          cards={cards}
-          comments={comments}
-          columns={collumns}
-          getComments={getCommentsById}
-          getCardData={getCardsDataById}
-          changeTitle={changeTitleCard}
-          changeData={changeCardData}
-          deleteCard={deleteCard}
-          changeComment={changeComment}
-          deleteComment={deleteComment}
-          addComment={addComment}
-        />
-      )}
     </>
   );
 };

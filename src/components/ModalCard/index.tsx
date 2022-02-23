@@ -16,137 +16,161 @@ import {
   CardComments,
   CommentAuthor,
   CommentsContainer,
-} from "../ModalCard/styles";
+} from "./styles";
 import { IModalCardProps } from "./interfaces";
 import BackgroundModal from "../BackModal";
 import AddComponent from "../AddComments";
+import { ICard, ICommentsData } from "../../interfaces/interfaces";
+import { LOCALSTORAGE_KEYS } from "../../constants";
+
+const getCardsData = (id: number, cards: ICard[]) => {
+  return cards.filter((item) => item.id === id);
+};
+
+const getComments = (id: number, comments: ICommentsData[]) => {
+  return comments.filter((item) => item.cardId === id);
+};
 
 const ModalCard: FunctionComponent<IModalCardProps> = ({
   cardId,
-  comments,
+  // comments,
   cards,
-  columns,
-  setId,
-  getCardData,
-  getComments,
-  changeData,
-  changeTitle,
-  deleteCard,
-  deleteComment,
-  changeComment,
-  addComment,
+  // columns,
+  // setId,
+  // getCardData,
+  // getComments,
+  // changeData,
+  // changeTitle,
+  // deleteCard,
+  // deleteComment,
+  // changeComment,
+  // addComment,
 }) => {
-  const localCardsData = getCardData(cardId, cards);
-  const [localComments, setLocalComments] = useState(
-    getComments(cardId, comments)
+  const localCardsData = getCardsData(cardId, cards);
+  const localComments = JSON.parse(
+    localStorage.getItem(LOCALSTORAGE_KEYS.comments) as string
   );
-  const [colTitle, setColTitle] = useState<string>("");
-  const [commentId, setCommentId] = useState<number>(-1);
-  const [inputValue, setInputValue] = useState("");
-  const [textAreValue, setTextAreaValue] = useState("");
-  const [isEdit, setIsEdit] = useState(false);
-  const [isEditData, setIsEditData] = useState(false);
-  const [isEditComment, setIsEditComment] = useState(false);
+  const [comments, setComments] = useState<ICommentsData[]>(
+    localComments === null ? [] : localComments
+  );
+  localStorage.setItem(
+    LOCALSTORAGE_KEYS.comments,
+    JSON.stringify(localComments)
+  );
 
-  useEffect(() => {
-    getColTitle();
-  }, []);
-
-  useEffect(() => {
-    setLocalComments(getComments(cardId, comments));
-  }, [comments]);
-
-  const onClose = () => {
-    setId(undefined);
+  const getComments = (id: number, comments: ICommentsData[]) => {
+    return comments.filter((item) => item.cardId === id);
   };
+  // const [localComments, setLocalComments] = useState(
+  //   getComments(cardId, comments)
+  // );
+  // const [colTitle, setColTitle] = useState<string>("");
+  // const [commentId, setCommentId] = useState<number>(-1);
+  // const [inputValue, setInputValue] = useState("");
+  // const [textAreValue, setTextAreaValue] = useState("");
+  // const [isEdit, setIsEdit] = useState(false);
+  // const [isEditData, setIsEditData] = useState(false);
+  // const [isEditComment, setIsEditComment] = useState(false);
 
-  const resetInputValue = () => {
-    setInputValue("");
-  };
+  // useEffect(() => {
+  //   getColTitle();
+  // }, []);
 
-  const resetTextAreaValue = () => {
-    setTextAreaValue("");
-  };
+  // useEffect(() => {
+  //   setLocalComments(getComments(cardId, comments));
+  // }, [comments]);
 
-  const getColTitle = () => {
-    const id = localCardsData.map((item) => item.columnId)[0];
-    const titleObj = columns.find((item) => item.columnId === id);
-    if (titleObj !== undefined) {
-      setColTitle(titleObj.title);
-    }
-  };
+  // const onClose = () => {
+  //   setId(undefined);
+  // };
 
-  const onClickTitle = () => {
-    setIsEdit(true);
-  };
+  // const resetInputValue = () => {
+  //   setInputValue("");
+  // };
 
-  const onClickData = () => {
-    setIsEditData(true);
-  };
+  // const resetTextAreaValue = () => {
+  //   setTextAreaValue("");
+  // };
 
-  const onClickComment = (id: number) => {
-    setIsEditComment(true);
-    setCommentId(id);
-  };
+  // const getColTitle = () => {
+  //   const id = localCardsData.map((item) => item.columnId)[0];
+  //   const titleObj = columns.find((item) => item.columnId === id);
+  //   if (titleObj !== undefined) {
+  //     setColTitle(titleObj.title);
+  //   }
+  // };
 
-  const onEditInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-    console.log("input", inputValue);
-  };
+  // const onClickTitle = () => {
+  //   setIsEdit(true);
+  // };
 
-  const onEditTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTextAreaValue(event.target.value);
-  };
+  // const onClickData = () => {
+  //   setIsEditData(true);
+  // };
 
-  const onDeleteData = () => {
-    changeData(cardId, "");
-  };
+  // const onClickComment = (id: number) => {
+  //   setIsEditComment(true);
+  //   setCommentId(id);
+  // };
 
-  const onAddData = () => {
-    setIsEditData(true);
-  };
+  // const onEditInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setInputValue(event.target.value);
+  //   console.log("input", inputValue);
+  // };
 
-  const onSubmitEditTitle = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    changeTitle(cardId, inputValue);
-    setIsEdit(false);
-    resetInputValue();
-  };
+  // const onEditTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  //   setTextAreaValue(event.target.value);
+  // };
 
-  const onSubmitEditData = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    changeData(cardId, textAreValue);
-    setIsEditData(false);
-    resetTextAreaValue();
-  };
+  // const onDeleteData = () => {
+  //   changeData(cardId, "");
+  // };
 
-  const onSubmitEditComment = (event: React.ChangeEvent<HTMLFormElement>) => {
-    changeComment(commentId, inputValue);
-    setIsEditComment(false);
-    resetInputValue();
-  };
+  // const onAddData = () => {
+  //   setIsEditData(true);
+  // };
 
-  const onSubmitAddComment = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    event.target.reset();
-    addComment(cardId, inputValue);
-    setIsEditComment(false);
-    resetInputValue();
-  };
+  // const onSubmitEditTitle = (event: React.ChangeEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   changeTitle(cardId, inputValue);
+  //   setIsEdit(false);
+  //   resetInputValue();
+  // };
 
-  const onDeleteComment = (id: number) => {
-    deleteComment(id);
-  };
+  // const onSubmitEditData = (event: React.ChangeEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   changeData(cardId, textAreValue);
+  //   setIsEditData(false);
+  //   resetTextAreaValue();
+  // };
 
-  const onDeleteCard = () => {
-    deleteCard(cardId);
-    onClose();
-  };
+  // const onSubmitEditComment = (event: React.ChangeEvent<HTMLFormElement>) => {
+  //   changeComment(commentId, inputValue);
+  //   setIsEditComment(false);
+  //   resetInputValue();
+  // };
+
+  // const onSubmitAddComment = (event: React.ChangeEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   event.target.reset();
+  //   addComment(cardId, inputValue);
+  //   setIsEditComment(false);
+  //   resetInputValue();
+  // };
+
+  // const onDeleteComment = (id: number) => {
+  //   deleteComment(id);
+  // };
+
+  // const onDeleteCard = () => {
+  //   deleteCard(cardId);
+  //   onClose();
+  // };
 
   return (
     <>
-      {localCardsData.map(({ title, author, data }) => (
-        <BackgroundModal>
+      <StyledModalCard>ХАЙ</StyledModalCard>
+      {/* {localCardsData.map(({ title, author, data }) => (
           <StyledModalCard>
             <CardHeader>
               {isEdit ? (
@@ -157,7 +181,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
                   inputValue={inputValue}
                 />
               ) : (
-                <CardTitle onClick={onClickTitle}>
+                <CardTitle onClick={onCа вызов lickTitle}>
                   <Container>{title}</Container>
                 </CardTitle>
               )}
@@ -218,8 +242,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
               />
             </CardComments>
           </StyledModalCard>
-        </BackgroundModal>
-      ))}
+      ))} */}
     </>
   );
 };
