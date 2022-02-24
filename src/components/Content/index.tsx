@@ -81,46 +81,6 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
     localStorage.setItem(LOCALSTORAGE_KEYS.cards, JSON.stringify(newObj));
   };
 
-  const deleteCard = (id: number) => {
-    const itemToDelete = cards.find((item) => item.id === id);
-    const newObj = cards.filter((item) => item !== itemToDelete);
-
-    setCards(newObj);
-    localStorage.setItem(LOCALSTORAGE_KEYS.cards, JSON.stringify(newObj));
-  };
-
-  const changeComment = (id: number, newComment: string) => {
-    const newObj = comments.map((item) => {
-      if (item.id === id) {
-        item.comment = newComment;
-      }
-      return item;
-    });
-
-    setComments(newObj);
-    localStorage.setItem("comments", JSON.stringify(newObj));
-  };
-
-  const deleteComment = (id: number) => {
-    const itemToDelete = comments.find((item) => item.id === id);
-    const newObj = comments.filter((item) => item !== itemToDelete);
-
-    setComments(newObj);
-    localStorage.setItem("comments", JSON.stringify(newObj));
-  };
-
-  const addComment = (cardId: number, comment: string) => {
-    const newComment: ICommentsData = {
-      id: new Date().getMilliseconds(),
-      cardId: cardId,
-      name: authName,
-      comment: comment,
-    };
-
-    setComments((prevState) => [...prevState, newComment]);
-    localStorage.setItem("comments", JSON.stringify([...comments, newComment]));
-  };
-
   const getCommentsById = (id: number, comments: ICommentsData[]) => {
     return comments.filter((item) => item.cardId === id);
   };

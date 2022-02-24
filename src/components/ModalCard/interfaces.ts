@@ -6,10 +6,11 @@ import {
 } from "../../interfaces/interfaces";
 
 export interface IModalCardProps {
-  // setId: Dispatch<React.SetStateAction<number | undefined>>;
+  setId: Dispatch<React.SetStateAction<number | undefined>>;
   cardId: number;
   // comments: ICommentsData[];
   cards: ICard[];
+  authName: string;
   // columns: ICollumnStorage[];
   // getCardData: (id: number, cardsData: ICard[]) => ICard[];
   // getComments: (id: number, comments: ICommentsData[]) => ICommentsData[];

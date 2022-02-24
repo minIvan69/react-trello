@@ -144,8 +144,9 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
         {cardId && (
           <ModalCard
             cardId={cardId}
-            // setId={setCardId}
+            setId={setCardId}
             cards={cards}
+            authName={authName}
             // comments={comments}
             // columns={collumns}
             // getComments={getCommentsById}

@@ -5,7 +5,8 @@ export const StyledModalCard = styled.div`
   position: absolute;
   z-index: 99999;
   height: 800px;
-  width: 1000px;
+  width: 100%;
+  max-width: 80vw;
   background-color: #f4f5f7;
   padding: 20px;
   opacity: 1;
@@ -93,6 +94,9 @@ export const CommentAuthor = styled.div`
 export const CardAuthor = styled.div`
   font-size: 1.2em;
   font-weight: 600;
+  width: 200px;
+  height: 200px;
+  background: red;
 `;
 
 export const CommentsContainer = styled.div`
