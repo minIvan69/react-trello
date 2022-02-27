@@ -2,7 +2,7 @@ export interface ICard {
   id: number;
   columnId: number;
   title: string;
-  data: string;
+  content: string;
   author: string;
 }
 
@@ -17,7 +17,7 @@ export interface ICollumnStorage {
   title: string;
 }
 
-export interface ICommentsData {
+export interface ICommentsStorage {
   id: number;
   cardId: number;
   name: string;

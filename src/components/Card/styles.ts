@@ -11,5 +11,4 @@ export const Comments = styled.span`
 
 export const CommentsCount = styled.span`
   height: 30px;
-  background: blue;
 `;

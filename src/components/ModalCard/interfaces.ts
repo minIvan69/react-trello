@@ -2,22 +2,22 @@ import React, { Dispatch } from "react";
 import {
   ICard,
   ICollumnStorage,
-  ICommentsData,
+  ICommentsStorage,
 } from "../../interfaces/interfaces";
 
 export interface IModalCardProps {
+  localCardId: number;
   setId: Dispatch<React.SetStateAction<number | undefined>>;
-  cardId: number;
-  // comments: ICommentsData[];
+  comments: ICommentsStorage[];
   cards: ICard[];
   authName: string;
-  // columns: ICollumnStorage[];
-  // getCardData: (id: number, cardsData: ICard[]) => ICard[];
-  // getComments: (id: number, comments: ICommentsData[]) => ICommentsData[];
-  // changeTitle: (id: number, title: string) => void;
-  // changeData: (id: number, newData: string) => void;
-  // deleteCard: (id: number) => void;
-  // deleteComment: (id: number) => void;
-  // changeComment: (id: number, newComment: string) => void;
-  // addComment: (cardId: number, comment: string) => void;
+  columns: ICollumnStorage[];
+  getCardContent: (id: number, cardsData: ICard[]) => ICard[];
+  getComments: (id: number, comments: ICommentsStorage[]) => ICommentsStorage[];
+  changeTitle: (id: number, title: string) => void;
+  changeDescription: (id: number, newData: string) => void;
+  deleteCard: (id: number) => void;
+  deleteComment: (id: number) => void;
+  changeComment: (id: number, newComment: string) => void;
+  addComment: (cardId: number, comment: string) => void;
 }

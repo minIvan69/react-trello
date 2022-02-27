@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const ContainerCollumns = styled.div`
   max-width: 300px;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -14,10 +15,22 @@ export const ContainerCollumns = styled.div`
 `;
 
 export const CollumnsBlock = styled.div`
-  height: 50vh;
+  overflow-y: auto;
+  min-height: 50vh;
+  max-height: 81vh;
+  height: 100%;
   width: 100%;
   background-color: antiquewhite;
   border-radius: 5px;
+
+  ::-webkit-scrollbar {
+    width: 7px;
+    background-color: #f0efef;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #ff00bcba;
+  }
 `;
 
 export const HeaderBlock = styled.div`
@@ -46,7 +59,6 @@ export const ContentCard = styled.div`
 `;
 
 export const AddCard = styled.div`
-  //  TODO: улучшить
   padding: 10px;
   display: flex;
   border: 1px #939292ff solid;
@@ -54,7 +66,7 @@ export const AddCard = styled.div`
   justify-content: space-between;
   align-items: center;
   position: relative;
-  bottom: -20px;
+  margin: 10px 0;
   height: auto;
   width: 100%;
 `;
