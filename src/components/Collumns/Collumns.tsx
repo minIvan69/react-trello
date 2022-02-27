@@ -1,18 +1,15 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { LOCALSTORAGE_KEYS } from "../../constants";
 import { ICard } from "../../interfaces/interfaces";
 import EditComponent from "../EditComponent/EditComponent";
 import { ICollumnProps } from "./interfaces";
-import { Card, ModalCard } from "..";
+import { Card } from "..";
 import {
   CollumnsBlock,
   ContainerCollumns,
   Content,
   HeaderBlock,
   Title,
-  Option,
   AddCardText,
-  StyledImg,
   AddCard,
   ContentCard,
 } from "./styles";
@@ -20,7 +17,6 @@ import {
 const Collumns: FunctionComponent<ICollumnProps> = ({
   colId,
   title,
-  authName,
   setCardId,
   changeTitle,
   cards,
@@ -32,16 +28,13 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState("");
   const [isEdit, setIsEdit] = useState(false);
+  const [localCardId, setLocalId] = useState(0);
   const [localCards, setLocalCards] = useState<ICard[]>(() =>
     getCards(colId, cards)
   );
 
-  const [localCardId, setLocalId] = useState(0);
-  const [visible, setVisible] = useState(false);
-
   useEffect(() => {
     setLocalCards(() => getCards(colId, cards));
-    console.log("Вызываюсь");
   }, [cards]);
 
   const onAddCard = () => {
@@ -109,7 +102,6 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
 
             <AddCard onClick={onAddCard}>
               <AddCardText>Add card</AddCardText>
-              {/* <StyledImg src="img/plus-svg.svg" onClick={onAddCard} /> */}
             </AddCard>
           </Content>
         </CollumnsBlock>

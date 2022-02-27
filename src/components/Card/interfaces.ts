@@ -1,4 +1,3 @@
-import React, { Dispatch } from "react";
 import { ICommentsStorage } from "../../interfaces/interfaces";
 
 export interface ICardProps {

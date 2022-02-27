@@ -9,7 +9,7 @@ import Modal from "react-modal";
 import { Collumns, ModalCard } from "..";
 import { IContentProps } from "./interfaces";
 import { initialCollumnsState } from "../../data";
-import { BoardContent, Title, ContainerCollumns, Container } from "./styles";
+import { Title, ContainerCollumns, Container } from "./styles";
 
 const Content: FunctionComponent<IContentProps> = ({ authName }) => {
   const [cardId, setCardId] = useState<number | undefined>(undefined);
@@ -184,8 +184,14 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
           ))}
         </ContainerCollumns>
       </Container>
-      <Modal isOpen={modalIsOpen}>
-        <button onClick={closeModal}>close</button>
+      <Modal
+        isOpen={modalIsOpen}
+        style={{
+          content: {
+            padding: 0,
+          },
+        }}
+      >
         {cardId && (
           <ModalCard
             localCardId={cardId}
@@ -202,6 +208,7 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
             changeComment={changeComment}
             deleteComment={deleteComment}
             addComment={addComment}
+            onClose={closeModal}
           />
         )}
       </Modal>

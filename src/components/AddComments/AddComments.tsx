@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { IAddComponentProps } from "./interfaces";
 import { EditContainer, StyledButton, StyledInput } from "./styles";
 

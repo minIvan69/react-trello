@@ -8,14 +8,14 @@ import {
 } from "./styles";
 import { IModalAuthorProps } from "./interfaces";
 import { useCookies } from "react-cookie";
-import BackModal from "../BackModal";
 
 const AuthorModal: FunctionComponent<IModalAuthorProps> = ({
   authorName,
   setAuthName,
+  visibleModal,
 }) => {
   const [inputValue, setInputValue] = useState("");
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     if (authorName === undefined) {
@@ -34,24 +34,23 @@ const AuthorModal: FunctionComponent<IModalAuthorProps> = ({
     setVisible(false);
     setCookie("authName", inputValue);
     setAuthName(inputValue);
+    visibleModal(false);
   };
 
   return visible ? (
-    <BackModal>
-      <Container>
-        <StyledForm onSubmit={onsubmit}>
-          <StyledInput
-            placeholder={"Input your author name"}
-            onChange={onChange}
-          />
-          {inputValue === "" ? (
-            <DisabledButton disabled={true}> Accept </DisabledButton>
-          ) : (
-            <StyledButton type={"submit"}> Accept </StyledButton>
-          )}
-        </StyledForm>
-      </Container>
-    </BackModal>
+    <Container>
+      <StyledForm onSubmit={onsubmit}>
+        <StyledInput
+          placeholder={"Input your author name"}
+          onChange={onChange}
+        />
+        {inputValue === "" ? (
+          <DisabledButton disabled={true}> Accept </DisabledButton>
+        ) : (
+          <StyledButton type={"submit"}> Accept </StyledButton>
+        )}
+      </StyledForm>
+    </Container>
   ) : null;
 };
 

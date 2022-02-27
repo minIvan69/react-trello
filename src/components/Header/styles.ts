@@ -9,6 +9,7 @@ export const AppHeader = styled.div`
   max-height: 50px;
   font-size: calc(10px + 2vmin);
   color: white;
+  justify-content: space-between;
 `;
 
 export const AppLogo = styled.div`
@@ -33,6 +34,15 @@ export const HeaderLogoTxt = styled.div`
 `;
 
 export const UserIcon = styled.div`
+  z-index: 99999;
+  height: 40px;
+  width: 40px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const StyledUserIcon = styled.div`
   z-index: 99999;
   height: 40px;
   width: 40px;

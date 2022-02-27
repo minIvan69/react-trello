@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { EditComponent } from "..";
+import { EditComponent, AddComponent, EditDescription } from "..";
 import {
   Container,
   StyledModalCard,
@@ -18,7 +18,6 @@ import {
   CommentsContainer,
 } from "./styles";
 import { IModalCardProps } from "./interfaces";
-import AddComponent from "../AddComments/AddComments";
 
 const ModalCard: FunctionComponent<IModalCardProps> = ({
   localCardId,
@@ -34,17 +33,19 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
   deleteComment,
   changeComment,
   addComment,
+  onClose,
 }) => {
   const localCardsStorage = getCardContent(localCardId, cards);
   const [localComments, setLocalComments] = useState(
     getComments(localCardId, comments)
   );
   const [colTitle, setColTitle] = useState<string>("");
+  const [isEditDescription, setIsEditDescription] = useState(false);
   const [commentId, setCommentId] = useState<number>(-1);
   const [inputValue, setInputValue] = useState("");
   const [textAreValue, setTextAreaValue] = useState("");
   const [isEdit, setIsEdit] = useState(false);
-  const [isEditDescription, setIsEditDescription] = useState(false);
+
   const [isEditComment, setIsEditComment] = useState(false);
 
   useEffect(() => {
@@ -54,10 +55,6 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
   useEffect(() => {
     setLocalComments(getComments(localCardId, comments));
   }, [comments]);
-
-  const onClose = () => {
-    setId(undefined);
-  };
 
   const resetInputValue = () => {
     setInputValue("");
@@ -90,7 +87,6 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
 
   const onEditInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
-    console.log("input", inputValue);
   };
 
   const onEditTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -101,7 +97,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
     changeDescription(localCardId, "");
   };
 
-  const onAddData = () => {
+  const onAddDescription = () => {
     setIsEditDescription(true);
   };
 
@@ -141,7 +137,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
 
   const onDeleteCard = () => {
     deleteCard(localCardId);
-    onClose();
+    onClose(false);
   };
 
   return (
@@ -163,13 +159,9 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
                   <Container>{title}</Container>
                 </CardTitle>
               )}
-              <StyledImg
-                src="img/cross.svg"
-                //  onClick={onClose}
-              />
+              <StyledImg src="img/cross.svg" onClick={() => onClose(false)} />
             </CardHeader>
             <CardAuthor>{author}</CardAuthor>
-            {/* <div>in column {colTitle}</div> */}
             {isEditDescription ? (
               <EditComponent
                 onSubmitForm={onSubmitEditDescription}
@@ -178,23 +170,17 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
                 setIsEdit={setIsEditDescription}
                 textAreaValue={textAreValue}
               />
-            ) : content === "" ? (
-              <EditText onClick={onAddData}> Add description </EditText>
             ) : (
-              <>
-                <CardData onClick={onClickDescription}>
-                  <CardTitle>Description:</CardTitle>
-                  <StyledText>{content}</StyledText>
-                </CardData>
-                <EditText onClick={onDeleteDescription}>
-                  Remove description
-                </EditText>
-              </>
+              <EditDescription
+                onAddDescription={onAddDescription}
+                onClickDescription={onClickDescription}
+                onDeleteDescription={onDeleteDescription}
+                content={content}
+              />
             )}
             <DeleteCard onClick={onDeleteCard}>Delete card</DeleteCard>
             <CardComments>
               <CardTitle>Comments:</CardTitle>
-              {/* двойные тернарники убрать !!!!!!!! */}
               {localComments.map((item) => (
                 <CommentsContainer>
                   <CardComments key={item.id}>

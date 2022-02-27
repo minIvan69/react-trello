@@ -6,3 +6,6 @@ export { default as ModalCard } from "./ModalCard/ModalCard";
 export { default as EditComponent } from "./EditComponent/EditComponent";
 export { default as AuthorModal } from "./AuthorModal/AuthorModal";
 export { default as AppWrapper } from "./AppWrapper/AppWrapper";
+export { default as EditDescription } from "./EditDescription/EditDescription";
+export { default as AddComponent } from "./AddComments/AddComments";
+export { default as Menu } from "./Menu/Menu";

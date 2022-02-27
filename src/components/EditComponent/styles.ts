@@ -4,17 +4,19 @@ export const EditContainer = styled.form`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: red;
+  background: #ff9a9a;
 `;
 
 export const StyledInput = styled.input`
   font-size: 18px;
   padding: 10px 10px 10px 5px;
   display: block;
-  width: 400px;
+  width: 100%;
   border: none;
   border-bottom: 1px solid #757575;
-  background: red;
+  background: #ffffff99;
+  margin-left: 7px;
+  border-radius: 5px;
 
   &:focus {
     outline: none;

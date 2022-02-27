@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { ICommentsStorage } from "../../interfaces/interfaces";
 import { ICardProps } from "./interfaces";
 import { Content, Comments, CommentsCount } from "./styles";

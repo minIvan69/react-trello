@@ -5,9 +5,10 @@ import { useCookies } from "react-cookie";
 function App() {
   const [cookies] = useCookies(["authName"]);
   const [authName, setAuthName] = useState(cookies.authName);
+
   return (
     <AppWrapper>
-      <Header />
+      <Header authName={authName} setAuthName={setAuthName} />
       <Content authName={authName} />
     </AppWrapper>
   );

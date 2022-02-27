@@ -1,7 +1,6 @@
 import React, { SetStateAction } from "react";
 
-export interface IModalAuthorProps {
-  authorName: string;
-  visibleModal: (item: boolean) => void;
+export interface IHeaderProps {
+  authName: string;
   setAuthName: React.Dispatch<SetStateAction<string>>;
 }

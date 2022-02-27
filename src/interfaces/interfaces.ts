@@ -6,12 +6,6 @@ export interface ICard {
   author: string;
 }
 
-// export interface ICard {
-//   id: number
-//   columnId: number
-//   title: string
-// }
-
 export interface ICollumnStorage {
   columnId: number;
   title: string;
