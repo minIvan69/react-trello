@@ -76,6 +76,8 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
                 onEditInput={onEditInput}
                 setIsEdit={setIsEdit}
                 inputValue={inputValue}
+                textAreaValue={title}
+                defaultText={title}
               />
             ) : (
               <Title onClick={onClickTitle}>{title}</Title>
@@ -99,7 +101,6 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
                 />
               </ContentCard>
             ))}
-
             <AddCard onClick={onAddCard}>
               <AddCardText>Add card</AddCardText>
             </AddCard>

@@ -11,7 +11,7 @@ import {
 import Modal from "react-modal";
 
 const Header: FunctionComponent<IHeaderProps> = ({ authName, setAuthName }) => {
-  const [visible, setVisible] = useState(authName === undefined ? true : false);
+  const [visible, setVisible] = useState(!authName);
 
   const [visibleUser, setVisibleUser] = useState(true);
 
@@ -39,10 +39,11 @@ const Header: FunctionComponent<IHeaderProps> = ({ authName, setAuthName }) => {
             onUserClick(false);
             openModal(true);
           }}
+          alt="userIcon"
         />
       </StyledUserIcon>
 
-      <Modal isOpen={visible}>
+      <Modal isOpen={visible} ariaHideApp={false}>
         <AuthorModal
           authorName={authName}
           visibleModal={openModal}

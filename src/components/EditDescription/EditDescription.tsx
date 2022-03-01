@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 import { IEditDescription } from "./interfaces";
-import { CardData, CardTitle, EditText, StyledText } from "./styles";
+import { CardDescription, CardTitle, EditText, StyledText } from "./styles";
 
 const EditDescription: FunctionComponent<IEditDescription> = ({
   onClickDescription,
@@ -12,10 +12,10 @@ const EditDescription: FunctionComponent<IEditDescription> = ({
     <EditText onClick={onAddDescription}> Add description </EditText>
   ) : (
     <>
-      <CardData onClick={onClickDescription}>
+      <CardDescription onClick={onClickDescription}>
         <CardTitle>Description:</CardTitle>
         <StyledText>{content}</StyledText>
-      </CardData>
+      </CardDescription>
       <EditText onClick={onDeleteDescription}>Remove description</EditText>
     </>
   );

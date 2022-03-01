@@ -9,7 +9,7 @@ import Modal from "react-modal";
 import { Collumns, ModalCard } from "..";
 import { IContentProps } from "./interfaces";
 import { initialCollumnsState } from "../../data";
-import { Title, ContainerCollumns, Container } from "./styles";
+import { Title, ContainerCollumns, Container, ContentCollumns } from "./styles";
 
 const Content: FunctionComponent<IContentProps> = ({ authName }) => {
   const [cardId, setCardId] = useState<number | undefined>(undefined);
@@ -50,7 +50,7 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
       return item;
     });
     setColumns(newObj);
-    localStorage.setItem("columns", JSON.stringify(newObj));
+    localStorage.setItem(JSON.stringify(newObj), "columns");
   };
 
   const changeTitleCard = (id: number, title: string) => {
@@ -167,20 +167,22 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
         <Title>Trello in React</Title>
         <ContainerCollumns>
           {collumns.map((item, key) => (
-            <Collumns
-              key={key}
-              title={item.title}
-              colId={item.columnId}
-              cards={cards}
-              authName={authName}
-              setCardId={setCardId}
-              changeTitle={changeTitle}
-              getCards={getCardsById}
-              addCard={addCard}
-              cardClick={openModal}
-              comments={comments}
-              getCommentsById={getCommentsById}
-            />
+            <ContentCollumns key={key}>
+              <Collumns
+                key={key}
+                title={item.title}
+                colId={item.columnId}
+                cards={cards}
+                authName={authName}
+                setCardId={setCardId}
+                changeTitle={changeTitle}
+                getCards={getCardsById}
+                addCard={addCard}
+                cardClick={openModal}
+                comments={comments}
+                getCommentsById={getCommentsById}
+              />
+            </ContentCollumns>
           ))}
         </ContainerCollumns>
       </Container>
@@ -191,11 +193,11 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
             padding: 0,
           },
         }}
+        ariaHideApp={false}
       >
         {cardId && (
           <ModalCard
             localCardId={cardId}
-            setId={setCardId}
             cards={cards}
             authName={authName}
             comments={comments}

@@ -15,6 +15,7 @@ const EditComponent: FunctionComponent<IEditProps> = ({
   textAreaValue,
   inputValue,
   setIsEdit,
+  defaultText,
 }) => {
   const onCancel = () => {
     setIsEdit(false);
@@ -37,7 +38,7 @@ const EditComponent: FunctionComponent<IEditProps> = ({
     </EditContainer>
   ) : (
     <EditContainer onSubmit={onSubmitForm}>
-      <StyledInput onChange={onEditInput} />
+      <StyledInput onChange={onEditInput} defaultValue={defaultText} />
       {inputValue === "" ? (
         <StyledButton type={"button"} onClick={onCancel}>
           Cancel

@@ -4,14 +4,11 @@ import {
   Container,
   StyledModalCard,
   StyledText,
-  EditText,
   DeleteCard,
   CardAuthor,
   CardTitle,
-  CardData,
   StyledImg,
   StyledImgDeleteComment,
-  DeleteComment,
   CardHeader,
   CardComments,
   CommentAuthor,
@@ -24,7 +21,6 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
   comments,
   cards,
   columns,
-  setId,
   getCardContent,
   getComments,
   changeDescription,
@@ -48,6 +44,14 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
 
   const [isEditComment, setIsEditComment] = useState(false);
 
+  const getColTitle = () => {
+    const id = localCardsStorage.map((item) => item.columnId)[0];
+    const titleObj = columns.find((item) => item.columnId === id);
+    if (titleObj !== undefined) {
+      setColTitle(titleObj.title);
+    }
+  };
+
   useEffect(() => {
     getColTitle();
   }, []);
@@ -62,14 +66,6 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
 
   const resetTextAreaValue = () => {
     setTextAreaValue("");
-  };
-
-  const getColTitle = () => {
-    const id = localCardsStorage.map((item) => item.columnId)[0];
-    const titleObj = columns.find((item) => item.columnId === id);
-    if (titleObj !== undefined) {
-      setColTitle(titleObj.title);
-    }
   };
 
   const onClickTitle = () => {
@@ -142,9 +138,9 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
 
   return (
     <>
-      {localCardsStorage.map(({ title, author, content }) => (
+      {localCardsStorage.map(({ title, author, content }, key) => (
         <>
-          <StyledModalCard>
+          <StyledModalCard key={`${key}_${author}`}>
             <CardHeader>
               CardId {localCardId}
               {isEdit ? (
@@ -153,6 +149,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
                   onEditInput={onEditInput}
                   setIsEdit={setIsEdit}
                   inputValue={inputValue}
+                  defaultText={title}
                 />
               ) : (
                 <CardTitle onClick={onClickTitle}>
@@ -169,6 +166,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
                 onEditTextArea={onEditTextArea}
                 setIsEdit={setIsEditDescription}
                 textAreaValue={textAreValue}
+                defaultText={content}
               />
             ) : (
               <EditDescription
@@ -180,10 +178,16 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
             )}
             <DeleteCard onClick={onDeleteCard}>Delete card</DeleteCard>
             <CardComments>
+              <CardTitle>Add comment</CardTitle>
+              <AddComponent
+                onEditInput={onEditInput}
+                onSubmitForm={onSubmitAddComment}
+                inputValue={inputValue}
+              />
               <CardTitle>Comments:</CardTitle>
-              {localComments.map((item) => (
-                <CommentsContainer>
-                  <CardComments key={item.id}>
+              {localComments.map((item, key) => (
+                <CommentsContainer key={`${key}_${author}`}>
+                  <CardComments>
                     <CommentAuthor>{item.name}</CommentAuthor>
                     {isEditComment && item.id === commentId ? (
                       <EditComponent
@@ -191,6 +195,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
                         onEditInput={onEditInput}
                         inputValue={inputValue}
                         setIsEdit={setIsEditComment}
+                        defaultText={item.comment}
                       />
                     ) : (
                       <StyledText onClick={() => onClickComment(item.id)}>
@@ -204,11 +209,6 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
                   />
                 </CommentsContainer>
               ))}
-              <CardTitle>Add comment</CardTitle>
-              <AddComponent
-                onEditInput={onEditInput}
-                onSubmitForm={onSubmitAddComment}
-              />
             </CardComments>
           </StyledModalCard>
         </>

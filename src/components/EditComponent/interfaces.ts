@@ -8,4 +8,5 @@ export interface IEditProps {
   onEditTextArea?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   inputValue?: string;
   setIsEdit: React.Dispatch<SetStateAction<boolean>>;
+  defaultText?: string;
 }

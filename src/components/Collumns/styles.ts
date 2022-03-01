@@ -25,6 +25,7 @@ export const CollumnsBlock = styled.div`
 
   ::-webkit-scrollbar {
     width: 7px;
+    border-radius: 100px;
     background-color: #f0efef;
   }
 
@@ -45,7 +46,6 @@ export const Title = styled.div``;
 
 export const Content = styled.div`
   padding: 0 5px;
-  height: 100%;
 `;
 export const ContentCard = styled.div`
   height: 50px;

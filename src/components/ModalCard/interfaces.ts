@@ -1,4 +1,3 @@
-import React, { Dispatch } from "react";
 import {
   ICard,
   ICollumnStorage,
@@ -7,7 +6,6 @@ import {
 
 export interface IModalCardProps {
   localCardId: number;
-  setId: Dispatch<React.SetStateAction<number | undefined>>;
   comments: ICommentsStorage[];
   cards: ICard[];
   authName: string;

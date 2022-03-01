@@ -16,7 +16,7 @@ export const CardTitle = styled.h3`
   padding: 10px 0;
 `;
 
-export const CardData = styled.div`
+export const CardDescription = styled.div`
   margin-top: 20px;
 `;
 

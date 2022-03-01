@@ -17,3 +17,7 @@ export const ContainerCollumns = styled.div`
   flex-direction: row;
   flex-wrap: nowrap;
 `;
+
+export const ContentCollumns = styled.div`
+  width: 100%;
+`;
