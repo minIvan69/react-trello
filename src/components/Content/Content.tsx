@@ -50,7 +50,7 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
       return item;
     });
     setColumns(newObj);
-    localStorage.setItem(JSON.stringify(newObj), "columns");
+    localStorage.setItem("columns", JSON.stringify(newObj));
   };
 
   const changeTitleCard = (id: number, title: string) => {
@@ -145,8 +145,8 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
       comment: comment,
     };
 
-    setComments((prevState) => [...prevState, newComment]);
-    localStorage.setItem("comments", JSON.stringify([...comments, newComment]));
+    setComments((prevState) => [newComment, ...prevState]);
+    localStorage.setItem("comments", JSON.stringify([newComment, ...comments]));
   };
 
   const getCommentsById = (id: number, comments: ICommentsStorage[]) => {

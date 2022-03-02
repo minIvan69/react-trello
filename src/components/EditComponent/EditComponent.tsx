@@ -27,6 +27,7 @@ const EditComponent: FunctionComponent<IEditProps> = ({
         onChange={onEditTextArea}
         disabled={false}
         readOnly={false}
+        defaultValue={defaultText}
       />
       {textAreaValue === "" ? (
         <StyledButton type={"button"} onClick={onCancel}>
