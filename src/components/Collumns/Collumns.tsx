@@ -14,35 +14,30 @@ import {
   ContentCard,
 } from "./styles";
 
-const Collumns: FunctionComponent<ICollumnProps> = ({
-  colId,
-  title,
-  setCardId,
-  changeTitle,
-  cards,
-  getCards,
-  addCard,
-  cardClick,
-  comments,
-  getCommentsById,
-}) => {
+const Collumns: FunctionComponent<ICollumnProps> = ({ colId, title }) => {
   const [inputValue, setInputValue] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [localCardId, setLocalId] = useState(0);
-  const [localCards, setLocalCards] = useState<ICard[]>(() =>
-    getCards(colId, cards)
-  );
+  // const [localCards, setLocalCards] = useState<ICard[]>(() =>
+  //   // getCards(colId, cards)
+  // );
 
-  useEffect(() => {
-    setLocalCards(() => getCards(colId, cards));
-  }, [cards]);
+  // const localCards = [
+  //   id:1,
+  //   title:1,
+  //   content:string,string,string;
+  // ]
+
+  // useEffect(() => {
+  //   setLocalCards(() => getCards(colId, cards));
+  // }, [cards]);
 
   const onAddCard = () => {
-    addCard(colId);
+    // addCard(colId);
   };
 
   const onClickCard = (item: number) => {
-    setCardId(item);
+    // setCardId(item);
     setLocalId(item);
   };
 
@@ -60,7 +55,7 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
 
   const onSubmitEdit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    changeTitle(colId, inputValue);
+    // changeTitle(colId, inputValue);
     setIsEdit(false);
     resetInputValue();
   };
@@ -84,11 +79,11 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
             )}
           </HeaderBlock>
           <Content>
-            {localCards.map((item, key) => (
+            {/* {localCards.map((item, key) => (
               <ContentCard
                 onClick={() => {
                   onClickCard(item.id);
-                  cardClick(true);
+                  // cardClick(true);
                 }}
                 key={`${item}_${key}`}
               >
@@ -96,11 +91,11 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
                   key={item.id}
                   id={item.id}
                   title={item.title}
-                  getComments={getCommentsById}
-                  comments={comments}
+                  // getComments={getCommentsById}
+                  // comments={comments}
                 />
               </ContentCard>
-            ))}
+            ))} */}
             <AddCard onClick={onAddCard}>
               <AddCardText>Add card</AddCardText>
             </AddCard>
