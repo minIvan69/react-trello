@@ -1,11 +1,7 @@
 import { FunctionComponent } from "react";
-import {
-  EditContainer,
-  StyledButton,
-  StyledInput,
-  StyledTextArea,
-} from "./styles";
+import { EditContainer } from "./styles";
 import { IEditProps } from "./interfaces";
+import { Input, TextArea } from "..";
 
 const EditComponent: FunctionComponent<IEditProps> = ({
   onEditInput,
@@ -23,30 +19,21 @@ const EditComponent: FunctionComponent<IEditProps> = ({
 
   return isTextArea ? (
     <EditContainer onSubmit={onSubmitForm}>
-      <StyledTextArea
-        onChange={onEditTextArea}
-        disabled={false}
-        readOnly={false}
-        defaultValue={defaultText}
+      <TextArea
+        onEditTextArea={onEditTextArea}
+        defaultText={defaultText}
+        onCancel={onCancel}
+        textAreaValue={textAreaValue}
       />
-      {textAreaValue === "" ? (
-        <StyledButton type={"button"} onClick={onCancel}>
-          Cancel
-        </StyledButton>
-      ) : (
-        <StyledButton>OK</StyledButton>
-      )}
     </EditContainer>
   ) : (
     <EditContainer onSubmit={onSubmitForm}>
-      <StyledInput onChange={onEditInput} defaultValue={defaultText} />
-      {inputValue === "" ? (
-        <StyledButton type={"button"} onClick={onCancel}>
-          Cancel
-        </StyledButton>
-      ) : (
-        <StyledButton>OK</StyledButton>
-      )}
+      <Input
+        onEditInput={onEditInput}
+        defaultText={defaultText}
+        onCancel={onCancel}
+        textAreaValue={inputValue}
+      />
     </EditContainer>
   );
 };

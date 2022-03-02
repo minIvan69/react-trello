@@ -9,3 +9,6 @@ export { default as AppWrapper } from "./AppWrapper/AppWrapper";
 export { default as EditDescription } from "./EditDescription/EditDescription";
 export { default as AddComponent } from "./AddComments/AddComments";
 export { default as Menu } from "./Menu/Menu";
+export { default as Input } from "./ui components/Input/Input";
+export { default as TextArea } from "./ui components/TextArea/TextArea";
+export { default as Button } from "./ui components/ButtonCheck/Button";
