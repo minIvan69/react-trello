@@ -7,7 +7,7 @@ export interface ICard {
 }
 
 export interface ICollumnStorage {
-  columnId: number;
+  id: number;
   title: string;
 }
 

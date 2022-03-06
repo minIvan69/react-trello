@@ -1,35 +1,13 @@
 import React, { FunctionComponent, useState } from "react";
-import { LOCALSTORAGE_KEYS } from "../../constants";
-import {
-  ICard,
-  ICollumnStorage,
-  ICommentsStorage,
-} from "../../interfaces/interfaces";
-import Modal from "react-modal";
+import { useSelector } from "react-redux";
+
 import { Collumns, ModalCard } from "..";
+import { selectors } from "../../redux/Collumns";
 import { IContentProps } from "./interfaces";
-import { initialCollumnsState } from "../../data";
 import { Title, ContainerCollumns, Container, ContentCollumns } from "./styles";
 
 const Content: FunctionComponent<IContentProps> = ({ authName }) => {
-  const collumns = [
-    {
-      title: "TODO",
-      columnId: 0,
-    },
-    {
-      title: "InProgress",
-      columnId: 1,
-    },
-    {
-      title: "Testing",
-      columnId: 2,
-    },
-    {
-      title: "Done",
-      columnId: 3,
-    },
-  ];
+  const collumns = useSelector(selectors.selectColumns);
 
   const [setVisible, setIsVisible] = useState(false);
 
@@ -47,7 +25,7 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
               <Collumns
                 key={key}
                 title={item.title}
-                colId={item.columnId}
+                colId={item.id}
                 // cards={cards}
                 // authName={authName}
                 // setCardId={setCardId}

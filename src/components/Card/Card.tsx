@@ -6,26 +6,26 @@ import { Content, Comments, CommentsCount } from "./styles";
 const Card: FunctionComponent<ICardProps> = ({
   title,
   id,
-  getComments,
-  comments,
+  // getComments,
+  // comments,
 }) => {
-  const [localComments, setLocalComments] = useState<ICommentsStorage[]>(
-    getComments(id, comments)
-  );
+  // const [localComments, setLocalComments] = useState<ICommentsStorage[]>(
+  //   getComments(id, comments)
+  // );
 
-  useEffect(() => {
-    setLocalComments(getComments(id, comments));
-  }, [comments]);
+  // useEffect(() => {
+  //   setLocalComments(getComments(id, comments));
+  // }, [comments]);
 
   return (
     <Content>
       {title}
-      {localComments.length > 0 ? (
+      {/* {localComments.length > 0 ? (
         <Comments>
           <img src={"img/comment.svg"} />
           <CommentsCount>{localComments.length}</CommentsCount>
         </Comments>
-      ) : null}
+      ) : null} */}
     </Content>
   );
 };
