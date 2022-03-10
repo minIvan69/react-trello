@@ -16,7 +16,7 @@ const cardSlice = createSlice({
         title: string;
         content: string;
         author: string;
-      }>
+      }>{}
     );,
   },
 });
