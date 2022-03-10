@@ -1,6 +1,5 @@
-import { actions } from "./../ducks";
 import { ICard } from "../../interfaces/interfaces";
-import { AddCard } from "../../components/Collumns/styles";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: ICard[] = [];
 
@@ -8,15 +7,15 @@ const cardSlice = createSlice({
   name: "card",
   initialState,
   reducers: {
-    AddCard(
-      state,
-      action: PayloadAction<{
-        id: number;
-        collumn: number;
-        title: string;
-        content: string;
-        author: string;
-      }>{}
-    );,
+    addCard(state, { payload }: PayloadAction<{ newCard: ICard }>) {
+      const { newCard } = payload;
+
+      state.push(newCard);
+    },
   },
 });
+
+const actions = { ...cardSlice.actions };
+const reducer = cardSlice.reducer;
+
+export { actions, reducer };
