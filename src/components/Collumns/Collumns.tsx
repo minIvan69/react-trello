@@ -13,24 +13,23 @@ import {
   AddCard,
   ContentCard,
 } from "./styles";
+import { useDispatch } from "react-redux";
+import { actions } from "../../redux/ducks";
 
 const Collumns: FunctionComponent<ICollumnProps> = ({ colId, title }) => {
   const [inputValue, setInputValue] = useState("");
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEditTitle, setIsEditTitle] = useState(false);
   const [localCardId, setLocalId] = useState(0);
-  // const [localCards, setLocalCards] = useState<ICard[]>(() =>
-  //   // getCards(colId, cards)
-  // );
+  const dispatch = useDispatch();
 
-  // const localCards = [
-  //   id:1,
-  //   title:1,
-  //   content:string,string,string;
-  // ]
+  const onClickTitle = () => {
+    setIsEditTitle(true);
+  };
 
-  // useEffect(() => {
-  //   setLocalCards(() => getCards(colId, cards));
-  // }, [cards]);
+  const onSubmitChangeTitles = (value: string) => {
+    dispatch(actions.collumns.changeTitle({ collumnId: colId, title: value }));
+    setIsEditTitle(false);
+  };
 
   const onAddCard = () => {
     // addCard(colId);
@@ -41,10 +40,6 @@ const Collumns: FunctionComponent<ICollumnProps> = ({ colId, title }) => {
     setLocalId(item);
   };
 
-  const onClickTitle = () => {
-    setIsEdit(true);
-  };
-
   const onEditInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -53,25 +48,15 @@ const Collumns: FunctionComponent<ICollumnProps> = ({ colId, title }) => {
     setInputValue("");
   };
 
-  const onSubmitEdit = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // changeTitle(colId, inputValue);
-    setIsEdit(false);
-    resetInputValue();
-  };
-
   return (
     <>
       <ContainerCollumns>
         <CollumnsBlock>
           <HeaderBlock>
-            {isEdit ? (
+            {isEditTitle ? (
               <EditComponent
-                onSubmitForm={onSubmitEdit}
-                onEditInput={onEditInput}
-                setIsEdit={setIsEdit}
-                inputValue={inputValue}
-                textAreaValue={title}
+                onSubmitForm={onSubmitChangeTitles}
+                setIsEdit={setIsEditTitle}
                 defaultText={title}
               />
             ) : (

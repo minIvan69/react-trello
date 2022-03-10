@@ -35,6 +35,7 @@ export const CollumnsBlock = styled.div`
 `;
 
 export const HeaderBlock = styled.div`
+  word-break: break-word;
   display: flex;
   flex-direction: row;
   padding: 10px 10px;

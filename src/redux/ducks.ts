@@ -1,15 +1,15 @@
 import { combineReducers } from "redux";
 
-import * as columns from "./Collumns";
+import * as collumns from "./Collumns";
 
 export const reducer = combineReducers({
-  columns: columns.reducer,
+  collumns: collumns.reducer,
 });
 
 export const actions = {
-  columns: columns.actions,
+  collumns: collumns.actions,
 };
 
 export const selectors = {
-  columns: columns.selectors,
+  collumns: collumns.selectors,
 };

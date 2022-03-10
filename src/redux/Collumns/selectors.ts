@@ -1,3 +1,3 @@
 import { rootState } from "../store";
 
-export const selectColumns = (state: rootState) => state.columns;
+export const selectCollumns = (state: rootState) => state.collumns;

@@ -7,7 +7,7 @@ import { IContentProps } from "./interfaces";
 import { Title, ContainerCollumns, Container, ContentCollumns } from "./styles";
 
 const Content: FunctionComponent<IContentProps> = ({ authName }) => {
-  const collumns = useSelector(selectors.selectColumns);
+  const collumns = useSelector(selectors.selectCollumns);
 
   const [setVisible, setIsVisible] = useState(false);
 

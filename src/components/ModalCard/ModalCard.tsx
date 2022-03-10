@@ -136,13 +136,14 @@ const ModalCard: FunctionComponent<IModalCardProps> = (
           <CardHeader>
             {/* CardId {localCardId} */}
             {isEdit ? (
-              <EditComponent
-                onSubmitForm={onSubmitEditTitle}
-                onEditInput={onEditInput}
-                setIsEdit={setIsEdit}
-                inputValue={inputValue}
-                // defaultText={title}
-              />
+              // <EditComponent
+              //   onSubmitForm={onSubmitEditTitle}
+              //   onEditInput={onEditInput}
+              //   setIsEdit={setIsEdit}
+              //   inputValue={inputValue}
+              //   // defaultText={title}
+              // />
+              <></>
             ) : (
               <CardTitle onClick={onClickTitle}>
                 {/* <Container>{title}</Container> */}
@@ -154,13 +155,14 @@ const ModalCard: FunctionComponent<IModalCardProps> = (
             />
           </CardHeader>
           {/* <CardAuthor>{author}</CardAuthor> */}
-          {isEditDescription ? (
+          {/* {isEditDescription ? (
             <EditComponent
               onSubmitForm={onSubmitEditDescription}
               isTextArea={true}
               onEditTextArea={onEditTextArea}
               setIsEdit={setIsEditDescription}
               textAreaValue={textAreValue}
+              
               // defaultText={content}
             />
           ) : (
@@ -170,7 +172,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = (
               onDeleteDescription={onDeleteDescription}
               content={"string"}
             />
-          )}
+          )} */}
           <DeleteCard onClick={onDeleteCard}>Delete card</DeleteCard>
           <CardComments>
             <CardTitle>Add comment</CardTitle>

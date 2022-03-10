@@ -1,15 +1,10 @@
 import { FunctionComponent } from "react";
-import { EditContainer } from "./styles";
-import { IEditProps } from "./interfaces";
-import { Input, TextArea } from "..";
+import { IEditProps, ISubmitValue } from "./interfaces";
+import { Input, TextArea, Form } from "..";
 
 const EditComponent: FunctionComponent<IEditProps> = ({
-  onEditInput,
   onSubmitForm,
-  onEditTextArea,
   isTextArea,
-  textAreaValue,
-  inputValue,
   setIsEdit,
   defaultText,
 }) => {
@@ -17,24 +12,24 @@ const EditComponent: FunctionComponent<IEditProps> = ({
     setIsEdit(false);
   };
 
+  const onSubmit = (values: ISubmitValue) => {
+    onSubmitForm(values.value);
+  };
+
   return isTextArea ? (
-    <EditContainer onSubmit={onSubmitForm}>
-      <TextArea
-        onEditTextArea={onEditTextArea}
-        defaultText={defaultText}
-        onCancel={onCancel}
-        textAreaValue={textAreaValue}
-      />
-    </EditContainer>
+    <Form
+      onSubmitForm={onSubmit}
+      onCancel={onCancel}
+      component={TextArea}
+      defaultText={defaultText}
+    />
   ) : (
-    <EditContainer onSubmit={onSubmitForm}>
-      <Input
-        onEditInput={onEditInput}
-        defaultText={defaultText}
-        onCancel={onCancel}
-        textAreaValue={inputValue}
-      />
-    </EditContainer>
+    <Form
+      onSubmitForm={onSubmit}
+      onCancel={onCancel}
+      component={Input}
+      defaultText={defaultText}
+    />
   );
 };
 

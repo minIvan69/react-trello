@@ -31,10 +31,10 @@ const collumnSlice = createSlice({
       const { payload } = action;
       const { collumnId, title } = payload;
 
-      const columnEdit = state.find((item) => item.id === collumnId);
+      const collumnEdit = state.find((item) => item.id === collumnId);
 
-      if (columnEdit) {
-        columnEdit.title = title;
+      if (collumnEdit) {
+        collumnEdit.title = title;
       }
 
       return state;
