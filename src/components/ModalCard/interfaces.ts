@@ -9,7 +9,6 @@ export interface IModalCardProps {
   comments: ICommentsStorage[];
   cards: ICard[];
   authName: string;
-  columns: ICollumnStorage[];
   getCardContent: (id: number, cardsData: ICard[]) => ICard[];
   getComments: (id: number, comments: ICommentsStorage[]) => ICommentsStorage[];
   changeTitle: (id: number, title: string) => void;

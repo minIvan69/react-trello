@@ -135,6 +135,7 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
 
   const closeModal = () => {
     setIsOpen(false);
+    console.log("закрылось");
   };
 
   const addComment = (cardId: number, comment: string) => {
@@ -194,6 +195,9 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
           },
         }}
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={true}
+        onRequestClose={closeModal}
+        key={cardId}
       >
         {cardId && (
           <ModalCard
@@ -201,7 +205,6 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
             cards={cards}
             authName={authName}
             comments={comments}
-            columns={collumns}
             getComments={getCommentsById}
             getCardContent={getCardsDataById}
             changeTitle={changeTitleCard}

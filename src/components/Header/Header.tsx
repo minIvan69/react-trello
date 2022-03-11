@@ -1,4 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
+import logo from "../../assets/trello.svg";
+import userIcon from "../../assets/user-icon.svg";
 import { Menu, AuthorModal } from "..";
 import { IHeaderProps } from "./interfaces";
 import {
@@ -26,15 +28,13 @@ const Header: FunctionComponent<IHeaderProps> = ({ authName, setAuthName }) => {
   return (
     <AppHeader>
       <HeaderLogo>
-        <HeaderLogoImg>
-          <img src="public/assets/trello-logo.svg" alt="logo" />
-        </HeaderLogoImg>
+        <HeaderLogoImg src={logo} alt="logo" />
         <HeaderLogoTxt>Trello</HeaderLogoTxt>
       </HeaderLogo>
 
       <StyledUserIcon>
         <img
-          src="img/user-icon.svg"
+          src={userIcon}
           onClick={() => {
             onUserClick(false);
             openModal(true);

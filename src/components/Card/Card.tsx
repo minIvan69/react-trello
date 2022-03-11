@@ -1,4 +1,5 @@
 import { FunctionComponent, useEffect, useState } from "react";
+import commentImg from "../../assets/comment.svg";
 import { ICommentsStorage } from "../../interfaces/interfaces";
 import { ICardProps } from "./interfaces";
 import { Content, Comments, CommentsCount } from "./styles";
@@ -22,7 +23,7 @@ const Card: FunctionComponent<ICardProps> = ({
       {title}
       {localComments.length > 0 ? (
         <Comments>
-          <img src={"img/comment.svg"} />
+          <img src={commentImg} />
           <CommentsCount>{localComments.length}</CommentsCount>
         </Comments>
       ) : null}
