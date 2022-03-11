@@ -13,14 +13,17 @@ import {
   AddCard,
   ContentCard,
 } from "./styles";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../redux/ducks";
+import { selectors } from "../../redux/Card";
 
 const Collumns: FunctionComponent<ICollumnProps> = ({ colId, title }) => {
   const [inputValue, setInputValue] = useState("");
   const [isEditTitle, setIsEditTitle] = useState(false);
   const [localCardId, setLocalId] = useState(0);
   const dispatch = useDispatch();
+
+  const localCards = useSelector(selectors.cards.etCardsByCollumnsId);
 
   const onClickTitle = () => {
     setIsEditTitle(true);
@@ -64,7 +67,7 @@ const Collumns: FunctionComponent<ICollumnProps> = ({ colId, title }) => {
             )}
           </HeaderBlock>
           <Content>
-            {/* {localCards.map((item, key) => (
+            {localCards.map((item, key) => (
               <ContentCard
                 onClick={() => {
                   onClickCard(item.id);
@@ -80,7 +83,7 @@ const Collumns: FunctionComponent<ICollumnProps> = ({ colId, title }) => {
                   // comments={comments}
                 />
               </ContentCard>
-            ))} */}
+            ))}
             <AddCard onClick={onAddCard}>
               <AddCardText>Add card</AddCardText>
             </AddCard>
