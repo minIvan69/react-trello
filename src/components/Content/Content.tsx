@@ -135,7 +135,6 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
 
   const closeModal = () => {
     setIsOpen(false);
-    console.log("закрылось");
   };
 
   const addComment = (cardId: number, comment: string) => {
