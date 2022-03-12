@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
+import crossImg from "../../assets/cross.svg";
 import { EditComponent, AddComponent, EditDescription } from "..";
 import {
   Container,
@@ -16,23 +17,21 @@ import {
 } from "./styles";
 import { IModalCardProps } from "./interfaces";
 
-const ModalCard: FunctionComponent<IModalCardProps> = (
-  {
-    // localCardId,
-    // comments,
-    // cards,
-    // columns,
-    // getCardContent,
-    // getComments,
-    // changeDescription,
-    // changeTitle,
-    // deleteCard,
-    // deleteComment,
-    // changeComment,
-    // addComment,
-    // onClose,
-  }
-) => {
+const ModalCard: FunctionComponent<IModalCardProps> = ({
+  // localCardId,
+  // comments,
+  // cards,
+  // columns,
+  // getCardContent,
+  // getComments,
+  // changeDescription,
+  // changeTitle,
+  // deleteCard,
+  // deleteComment,
+  // changeComment,
+  // addComment,
+  onClose,
+}) => {
   const [colTitle, setColTitle] = useState<string>("");
   const [isEditDescription, setIsEditDescription] = useState(false);
   const [commentId, setCommentId] = useState<number>(-1);
@@ -149,10 +148,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = (
                 {/* <Container>{title}</Container> */}
               </CardTitle>
             )}
-            <StyledImg
-              src="img/cross.svg"
-              // onClick={() => onClose(false)}
-            />
+            <StyledImg src={crossImg} onClick={() => onClose(false)} />
           </CardHeader>
           {/* <CardAuthor>{author}</CardAuthor> */}
           {/* {isEditDescription ? (
@@ -201,7 +197,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = (
                   )}
                 </CardComments>
                 <StyledImgDeleteComment
-                  src={"img/cross.svg"}
+                  src={crossImg}
                   onClick={() => onDeleteComment(item.id)}
                 />
               </CommentsContainer>

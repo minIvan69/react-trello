@@ -10,7 +10,7 @@ export interface ICollumnProps {
   // changeTitle: (id: number, title: string) => void;
   // getCards: (id: number, cards: ICard[]) => ICard[];
   // addCard: (colId: number) => void;
-  // cardClick: (item: boolean) => void;
+  cardClick: (item: boolean, card: number) => void;
   // comments: ICommentsStorage[];
   // getCommentsById: (
   //   id: number,

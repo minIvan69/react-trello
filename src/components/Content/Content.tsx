@@ -1,18 +1,24 @@
 import React, { FunctionComponent, useState } from "react";
 import { useSelector } from "react-redux";
-
+import Modal from "react-modal";
 import { Collumns, ModalCard } from "..";
-import { selectors } from "../../redux/Collumns";
+import { selectors } from "../../redux/ducks";
 import { IContentProps } from "./interfaces";
 import { Title, ContainerCollumns, Container, ContentCollumns } from "./styles";
 
 const Content: FunctionComponent<IContentProps> = ({ authName }) => {
-  const collumns = useSelector(selectors.selectCollumns);
+  const [cardId, setCardId] = useState<number | undefined>(undefined);
+  const collumns = useSelector(selectors.collumns.selectCollumns);
 
   const [setVisible, setIsVisible] = useState(false);
 
-  const modalIsOpen = (item: boolean) => {
+  const modalIsOpen = (item: boolean, card: number) => {
     setIsVisible(item);
+    setCardId(card);
+  };
+
+  const closeModal = () => {
+    setIsVisible(false);
   };
 
   return (
@@ -26,31 +32,26 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
                 key={key}
                 title={item.title}
                 colId={item.id}
-                // cards={cards}
-                // authName={authName}
-                // setCardId={setCardId}
-                // changeTitle={changeTitle}
-                // getCards={getCardsById}
-                // addCard={addCard}
-                // cardClick={openModal}
-                // comments={comments}
-                // getCommentsById={getCommentsById}
+                cardClick={modalIsOpen}
               />
             </ContentCollumns>
           ))}
         </ContainerCollumns>
       </Container>
-      {/* <Modal
-        isOpen={modalIsOpen}
+      <Modal
+        isOpen={setVisible}
         style={{
           content: {
             padding: 0,
           },
         }}
         ariaHideApp={false}
-      > */}
-      {/* {cardId && ( */}
-      {/* <ModalCard
+        shouldCloseOnOverlayClick={true}
+        onRequestClose={closeModal}
+        key={cardId}
+      >
+        {cardId && (
+          <ModalCard
             // localCardId={cardId}
             // cards={cards}
             authName={authName}
@@ -64,10 +65,10 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
             // changeComment={changeComment}
             // deleteComment={deleteComment}
             // addComment={addComment}
-            // onClose={closeModal}
+            onClose={closeModal}
           />
-        )} */}
-      {/* </Modal> */}
+        )}
+      </Modal>
     </>
   );
 };

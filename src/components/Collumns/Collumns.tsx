@@ -14,16 +14,17 @@ import {
   ContentCard,
 } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../../redux/ducks";
-import { selectors } from "../../redux/Card";
+import { actions, selectors } from "../../redux/ducks";
 
-const Collumns: FunctionComponent<ICollumnProps> = ({ colId, title }) => {
-  const [inputValue, setInputValue] = useState("");
+const Collumns: FunctionComponent<ICollumnProps> = ({
+  colId,
+  title,
+  cardClick,
+}) => {
   const [isEditTitle, setIsEditTitle] = useState(false);
-  const [localCardId, setLocalId] = useState(0);
   const dispatch = useDispatch();
 
-  const localCards = useSelector(selectors.cards.etCardsByCollumnsId);
+  const localCards = useSelector(selectors.cards.getCardsByCollumnsId(colId));
 
   const onClickTitle = () => {
     setIsEditTitle(true);
@@ -35,20 +36,19 @@ const Collumns: FunctionComponent<ICollumnProps> = ({ colId, title }) => {
   };
 
   const onAddCard = () => {
-    // addCard(colId);
+    const newCard: ICard = {
+      id: new Date().getMilliseconds(),
+      columnId: colId,
+      title: "default name",
+      content: "",
+      author: title,
+    };
+
+    dispatch(actions.cards.addCard({ newCard }));
   };
 
   const onClickCard = (item: number) => {
-    // setCardId(item);
-    setLocalId(item);
-  };
-
-  const onEditInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const resetInputValue = () => {
-    setInputValue("");
+    cardClick(true, item);
   };
 
   return (
@@ -69,10 +69,7 @@ const Collumns: FunctionComponent<ICollumnProps> = ({ colId, title }) => {
           <Content>
             {localCards.map((item, key) => (
               <ContentCard
-                onClick={() => {
-                  onClickCard(item.id);
-                  // cardClick(true);
-                }}
+                onClick={() => onClickCard(item.id)}
                 key={`${item}_${key}`}
               >
                 <Card

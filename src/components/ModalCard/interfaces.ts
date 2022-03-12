@@ -18,5 +18,5 @@ export interface IModalCardProps {
   // deleteComment: (id: number) => void;
   // changeComment: (id: number, newComment: string) => void;
   // addComment: (cardId: number, comment: string) => void;
-  // onClose: (item: boolean) => void;
+  onClose: (item: boolean) => void;
 }

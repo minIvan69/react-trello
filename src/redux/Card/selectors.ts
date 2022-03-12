@@ -1,4 +1,4 @@
-import { createSelector } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
 import { rootState } from "../store";
 
 export const selectCard = (state: rootState) => state.cards;
