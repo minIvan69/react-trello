@@ -5,7 +5,7 @@ import {
 } from "../../interfaces/interfaces";
 
 export interface IModalCardProps {
-  // localCardId: number;
+  localCardId: number;
   // comments: ICommentsStorage[];
   // cards: ICard[];
   authName: string;

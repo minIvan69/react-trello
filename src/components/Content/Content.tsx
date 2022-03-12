@@ -52,7 +52,7 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
       >
         {cardId && (
           <ModalCard
-            // localCardId={cardId}
+            localCardId={cardId}
             // cards={cards}
             authName={authName}
             // comments={comments}

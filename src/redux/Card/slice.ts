@@ -12,6 +12,20 @@ const cardSlice = createSlice({
 
       state.push(newCard);
     },
+
+    changeTitle(
+      state,
+      { payload }: PayloadAction<{ cardId: number; newTitle: string }>
+    ) {
+      const { cardId, newTitle } = payload;
+      const editCard = state.find((item) => item.id === cardId);
+
+      if (editCard) {
+        editCard.title = newTitle;
+      }
+
+      return state;
+    },
   },
 });
 

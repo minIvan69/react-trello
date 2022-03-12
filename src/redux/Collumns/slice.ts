@@ -26,9 +26,8 @@ const collumnSlice = createSlice({
   reducers: {
     changeTitle(
       state,
-      action: PayloadAction<{ collumnId: number; title: string }>
+      { payload }: PayloadAction<{ collumnId: number; title: string }>
     ) {
-      const { payload } = action;
       const { collumnId, title } = payload;
 
       const collumnEdit = state.find((item) => item.id === collumnId);
