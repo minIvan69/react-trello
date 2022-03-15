@@ -11,7 +11,6 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);
-// @ts-ignore
 export const store = createStore(persistedReducer);
 export const persistor = persistStore(store);
 export type rootState = ReturnType<typeof store.getState>;

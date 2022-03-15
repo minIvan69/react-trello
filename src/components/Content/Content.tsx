@@ -3,10 +3,9 @@ import { useSelector } from "react-redux";
 import Modal from "react-modal";
 import { Collumns, ModalCard } from "..";
 import { selectors } from "../../redux/ducks";
-import { IContentProps } from "./interfaces";
 import { Title, ContainerCollumns, Container, ContentCollumns } from "./styles";
 
-const Content: FunctionComponent<IContentProps> = ({ authName }) => {
+const Content: FunctionComponent = () => {
   const [cardId, setCardId] = useState<number | undefined>(undefined);
   const collumns = useSelector(selectors.collumns.selectCollumns);
 
@@ -53,8 +52,10 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
         {cardId && (
           <ModalCard
             localCardId={cardId}
+            onClose={closeModal}
+
             // cards={cards}
-            authName={authName}
+            // authName={authName}
             // comments={comments}
             // columns={collumns}
             // getComments={getCommentsById}
@@ -65,7 +66,6 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
             // changeComment={changeComment}
             // deleteComment={deleteComment}
             // addComment={addComment}
-            onClose={closeModal}
           />
         )}
       </Modal>

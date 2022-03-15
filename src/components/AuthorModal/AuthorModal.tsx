@@ -8,50 +8,68 @@ import {
 } from "./styles";
 import { IModalAuthorProps } from "./interfaces";
 import { useCookies } from "react-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { actions, selectors } from "../../redux/ducks";
+import { Field, Form } from "react-final-form";
+import { Input } from "..";
 
 const AuthorModal: FunctionComponent<IModalAuthorProps> = ({
-  authorName,
-  setAuthName,
+  // setAuthName,
   visibleModal,
 }) => {
-  const [inputValue, setInputValue] = useState("");
   const [visible, setVisible] = useState(true);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (authorName === undefined) {
-      setVisible(true);
-    }
-  }, [authorName]);
+  const authorName = useSelector(selectors.authorNames.getAuthorName);
 
-  const [cookie, setCookie] = useCookies(["authName"]);
+  // const [cookies] = useCookies(["authName"]);
+  // const [authName, setAuthName] = useState(cookies.authName);
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
+  // const [inputValue, setInputValue] = useState("");
 
-  const onsubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  // useEffect(() => {
+  //   if (authorName === undefined) {
+  //     setVisible(true);
+  //   }
+  // }, [authorName]);
+
+  // const [cookie, setCookie] = useCookies(["authName"]);
+
+  // const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setInputValue(event.target.value);
+  // };
+
+  const onsubmit = (value: IModalAuthorProps) => {
     setVisible(false);
-    setCookie("authName", inputValue);
-    setAuthName(inputValue);
     visibleModal(false);
+    dispatch(actions.authorNames.setAuthor(value.authorName));
+    console.log(value.authorName);
   };
 
   return visible ? (
-    <Container>
-      <StyledForm onSubmit={onsubmit}>
-        <StyledInput
-          placeholder={"Input your author name"}
-          onChange={onChange}
-        />
-        {inputValue === "" ? (
-          <DisabledButton disabled={true}> Accept </DisabledButton>
-        ) : (
-          <StyledButton type={"submit"}> Accept </StyledButton>
-        )}
-      </StyledForm>
-    </Container>
-  ) : null;
+    <Form
+      onSubmit={onsubmit}
+      render={({ handleSubmit, submitting, pristine }) => (
+        <StyledForm onSubmit={handleSubmit}>
+          <Field
+            name="value"
+            type="text"
+            component={Input}
+            placeholder={"Input your author name"}
+          />
+
+          {submitting || pristine ? (
+            <DisabledButton type="submit" disabled={true}>
+              Accept
+            </DisabledButton>
+          ) : (
+            <StyledButton type="submit"> Accept </StyledButton>
+          )}
+        </StyledForm>
+      )}
+    />
+  ) : // <Form onSubmitForm={onsubmit} onCancel={onCancel} component={Input} />
+  null;
 };
 
 export default AuthorModal;

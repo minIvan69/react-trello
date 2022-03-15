@@ -37,6 +37,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
   const localCardsContent = useSelector(
     selectors.cards.getCardsById(localCardId)
   );
+  const author = useSelector(selectors.authorNames.getAuthorName);
 
   const { title, content } = localCardsContent;
 
@@ -144,15 +145,12 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
 
   return (
     <>
-      <StyledModalCard
-      //  key={`${key}_${author}`}
-      >
+      <StyledModalCard>
         <CardHeader>
-          {/* CardId {localCardId} */}
+          CardId {localCardId}
           {isEditTitle ? (
             <EditComponent
               onSubmitForm={onSubmitEditTitle}
-              // onEditInput={onEditInput}
               setIsEdit={setIsEdit}
               defaultText={title}
             />
@@ -163,7 +161,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
           )}
           <StyledImg src={crossImg} onClick={() => onClose(false)} />
         </CardHeader>
-        {/* <CardAuthor>{author}</CardAuthor> */}
+        <CardAuthor>{author}</CardAuthor>
         {/* {isEditDescription ? (
             <EditComponent
               onSubmitForm={onSubmitEditDescription}

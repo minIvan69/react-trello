@@ -1,14 +1,10 @@
-import {
-  ICard,
-  ICollumnStorage,
-  ICommentsStorage,
-} from "../../interfaces/interfaces";
-
 export interface IModalCardProps {
   localCardId: number;
+  onClose: (item: boolean) => void;
+
   // comments: ICommentsStorage[];
   // cards: ICard[];
-  authName: string;
+  // authName: string;
   // columns: ICollumnStorage[];
   // getCardContent: (id: number, cardsData: ICard[]) => ICard[];
   // getComments: (id: number, comments: ICommentsStorage[]) => ICommentsStorage[];
@@ -18,5 +14,4 @@ export interface IModalCardProps {
   // deleteComment: (id: number) => void;
   // changeComment: (id: number, newComment: string) => void;
   // addComment: (cardId: number, comment: string) => void;
-  onClose: (item: boolean) => void;
 }

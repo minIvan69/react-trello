@@ -2,7 +2,6 @@ import React, { FunctionComponent, useState } from "react";
 import logo from "../../assets/trello.svg";
 import userIcon from "../../assets/user-icon.svg";
 import { Menu, AuthorModal } from "..";
-import { IHeaderProps } from "./interfaces";
 import {
   AppHeader,
   HeaderLogo,
@@ -12,8 +11,8 @@ import {
 } from "./styles";
 import Modal from "react-modal";
 
-const Header: FunctionComponent<IHeaderProps> = ({ authName, setAuthName }) => {
-  const [visible, setVisible] = useState(!authName);
+const Header: FunctionComponent = () => {
+  const [visible, setVisible] = useState(true);
 
   const [visibleUser, setVisibleUser] = useState(true);
 
@@ -45,12 +44,12 @@ const Header: FunctionComponent<IHeaderProps> = ({ authName, setAuthName }) => {
 
       <Modal isOpen={visible} ariaHideApp={false}>
         <AuthorModal
-          authorName={authName}
+          authorName=""
           visibleModal={openModal}
-          setAuthName={setAuthName}
+          // setAuthName={setAuthName}
         />
       </Modal>
-      <Menu visible={visibleUser} authorName={authName} />
+      <Menu visible={visibleUser} />
     </AppHeader>
   );
 };
