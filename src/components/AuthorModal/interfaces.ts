@@ -5,3 +5,7 @@ export interface IModalAuthorProps {
   visibleModal: (item: boolean) => void;
   // setAuthName: React.Dispatch<SetStateAction<string>>;
 }
+
+export interface ISubmitValue {
+  value: string;
+}

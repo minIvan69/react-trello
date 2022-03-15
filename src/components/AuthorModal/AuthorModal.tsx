@@ -6,12 +6,12 @@ import {
   StyledForm,
   StyledInput,
 } from "./styles";
-import { IModalAuthorProps } from "./interfaces";
+import { IModalAuthorProps, ISubmitValue } from "./interfaces";
 import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { actions, selectors } from "../../redux/ducks";
-import { Field, Form } from "react-final-form";
-import { Input } from "..";
+import { Field } from "react-final-form";
+import { Input, Form } from "..";
 
 const AuthorModal: FunctionComponent<IModalAuthorProps> = ({
   // setAuthName,
@@ -35,41 +35,39 @@ const AuthorModal: FunctionComponent<IModalAuthorProps> = ({
 
   // const [cookie, setCookie] = useCookies(["authName"]);
 
-  // const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setInputValue(event.target.value);
-  // };
+  const onCancel = () => {};
 
-  const onsubmit = (value: IModalAuthorProps) => {
+  const onSubmit = (value: ISubmitValue) => {
     setVisible(false);
     visibleModal(false);
-    dispatch(actions.authorNames.setAuthor(value.authorName));
-    console.log(value.authorName);
+    dispatch(actions.authorNames.setAuthor(value.value));
+    console.log(value.value);
   };
 
   return visible ? (
-    <Form
-      onSubmit={onsubmit}
-      render={({ handleSubmit, submitting, pristine }) => (
-        <StyledForm onSubmit={handleSubmit}>
-          <Field
-            name="value"
-            type="text"
-            component={Input}
-            placeholder={"Input your author name"}
-          />
+    // <Form
+    //   onSubmit={onsubmit}
+    //   render={({ handleSubmit, submitting, pristine }) => (
+    //     <StyledForm onSubmit={handleSubmit}>
+    //       <Field
+    //         name="value"
+    //         type="text"
+    //         component={Input}
+    //         placeholder={"Input your author name"}
+    //       />
 
-          {submitting || pristine ? (
-            <DisabledButton type="submit" disabled={true}>
-              Accept
-            </DisabledButton>
-          ) : (
-            <StyledButton type="submit"> Accept </StyledButton>
-          )}
-        </StyledForm>
-      )}
-    />
-  ) : // <Form onSubmitForm={onsubmit} onCancel={onCancel} component={Input} />
-  null;
+    //       {submitting || pristine ? (
+    //         <DisabledButton type="submit" disabled={true}>
+    //           Accept
+    //         </DisabledButton>
+    //       ) : (
+    //         <StyledButton type="submit"> Accept </StyledButton>
+    //       )}
+    //     </StyledForm>
+    //   )}
+    // />
+    <Form onSubmitForm={onSubmit} onCancel={onCancel} component={Input} />
+  ) : null;
 };
 
 export default AuthorModal;
