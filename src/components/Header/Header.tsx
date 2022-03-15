@@ -47,10 +47,7 @@ const Header: FunctionComponent = () => {
       </StyledUserIcon>
 
       <Modal isOpen={visible} ariaHideApp={false}>
-        <AuthorModal
-          visibleModal={openModal}
-          // setAuthName={setAuthName}
-        />
+        <AuthorModal visibleModal={openModal} />
       </Modal>
       <Menu visible={visibleUser} />
     </AppHeader>
