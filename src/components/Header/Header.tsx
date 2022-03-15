@@ -10,10 +10,13 @@ import {
   StyledUserIcon,
 } from "./styles";
 import Modal from "react-modal";
+import { useSelector } from "react-redux";
+import { selectors } from "../../redux/ducks";
 
 const Header: FunctionComponent = () => {
-  const [visible, setVisible] = useState(true);
+  const authorName = useSelector(selectors.authorNames.getAuthorName);
 
+  const [visible, setVisible] = useState(!authorName);
   const [visibleUser, setVisibleUser] = useState(true);
 
   const onUserClick = (item: boolean) => {
@@ -24,6 +27,7 @@ const Header: FunctionComponent = () => {
     setVisible(item);
     setVisibleUser(true);
   };
+
   return (
     <AppHeader>
       <HeaderLogo>
@@ -44,7 +48,6 @@ const Header: FunctionComponent = () => {
 
       <Modal isOpen={visible} ariaHideApp={false}>
         <AuthorModal
-          authorName=""
           visibleModal={openModal}
           // setAuthName={setAuthName}
         />
