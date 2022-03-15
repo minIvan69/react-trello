@@ -49,3 +49,9 @@ export const DisabledButton = styled.button`
   margin-left: 5px;
   opacity: 0.5;
 `;
+
+export const StyledForm = styled.form`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;

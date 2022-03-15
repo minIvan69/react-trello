@@ -1,7 +1,11 @@
 import React from "react";
 
 export interface IAddComponentProps {
-  onSubmitForm: (event: React.ChangeEvent<HTMLFormElement>) => void;
+  onSubmitForm: (value: string) => void;
   onEditInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
   inputValue: string;
+}
+
+export interface ISubmitValue {
+  value: string;
 }

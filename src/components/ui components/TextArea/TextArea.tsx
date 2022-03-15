@@ -4,7 +4,7 @@ import { FieldRenderProps } from "react-final-form";
 import { StyledTextArea } from "./styles";
 
 const TextArea: FunctionComponent<FieldRenderProps<string>> = ({ input }) => {
-  return <StyledTextArea {...input} defaultValue={input.value} />;
+  return <StyledTextArea {...input} />;
 };
 
 export default TextArea;
