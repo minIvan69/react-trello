@@ -1,4 +1,4 @@
-import { ICard } from "../../interfaces/interfaces";
+import { ICard } from "../../../interfaces/interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: ICard[] = [];

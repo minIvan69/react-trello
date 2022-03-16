@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { rootState } from "../store";
+import { rootState } from "../../store";
 
 export const selectComments = (state: rootState) => state.comments;
 

@@ -9,6 +9,10 @@ export const Comments = styled.span`
   padding: 10px;
 `;
 
+export const CommentsImg = styled.img`
+  height: 15px;
+`;
+
 export const CommentsCount = styled.span`
   height: 30px;
 `;

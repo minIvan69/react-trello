@@ -1,8 +1,7 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { ICard } from "../../interfaces/interfaces";
-import EditComponent from "../EditComponent/EditComponent";
 import { ICollumnProps } from "./interfaces";
-import { Card } from "..";
+import { Card, EditComponent } from "..";
 import {
   CollumnsBlock,
   ContainerCollumns,
@@ -47,7 +46,7 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
     dispatch(actions.cards.addCard({ newCard }));
   };
 
-  const onClickCard = (item: number) => {
+  const handleCardClick = (item: number) => {
     cardClick(true, item);
   };
 
@@ -69,7 +68,7 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
           <Content>
             {localCards.map((item, key) => (
               <ContentCard
-                onClick={() => onClickCard(item.id)}
+                onClick={() => handleCardClick(item.id)}
                 key={`${item}_${key}`}
               >
                 <Card

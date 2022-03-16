@@ -1,3 +1,3 @@
-import { rootState } from "../store";
+import { rootState } from "../../store";
 
 export const selectCollumns = (state: rootState) => state.collumns;

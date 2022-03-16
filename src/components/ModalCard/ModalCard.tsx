@@ -27,10 +27,9 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const localCardsContent = useSelector(
+  const { title, content } = useSelector(
     selectors.cards.getCardsById(localCardId)
   );
-  const { title, content } = localCardsContent;
 
   const author = useSelector(selectors.authorNames.getAuthorName);
   const localComments = useSelector(
