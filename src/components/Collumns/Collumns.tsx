@@ -71,13 +71,7 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
                 onClick={() => handleCardClick(item.id)}
                 key={`${item}_${key}`}
               >
-                <Card
-                  key={item.id}
-                  id={item.id}
-                  title={item.title}
-                  // getComments={getCommentsById}
-                  // comments={comments}
-                />
+                <Card key={item.id} id={item.id} title={item.title} />
               </ContentCard>
             ))}
             <AddCard onClick={onAddCard}>

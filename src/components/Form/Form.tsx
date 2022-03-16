@@ -27,7 +27,6 @@ const FormComponent: FunctionComponent<IForm> = ({
             pristine={pristine}
             submitting={submitting}
             onCancel={onCancel}
-            component={component}
           />
         </EditContainer>
       )}

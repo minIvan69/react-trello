@@ -2,13 +2,7 @@ import { FunctionComponent } from "react";
 import { Field, Form } from "react-final-form";
 import { Input } from "..";
 import { IAddComponentProps, ISubmitValue } from "./interfaces";
-import {
-  EditContainer,
-  StyledButton,
-  StyledInput,
-  DisabledButton,
-  StyledForm,
-} from "./styles";
+import { StyledButton, DisabledButton, StyledForm } from "./styles";
 
 const AddComponent: FunctionComponent<IAddComponentProps> = ({
   onSubmitForm,
@@ -20,7 +14,7 @@ const AddComponent: FunctionComponent<IAddComponentProps> = ({
   return (
     <Form
       onSubmit={onSubmit}
-      render={({ handleSubmit, form, submitting, pristine, values }) => (
+      render={({ handleSubmit, form, submitting, pristine }) => (
         <StyledForm
           onSubmit={(event) => {
             event.preventDefault();

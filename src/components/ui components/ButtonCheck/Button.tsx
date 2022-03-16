@@ -5,7 +5,6 @@ import { StyledButton } from "./styles";
 const Button: FunctionComponent<IButton> = ({
   pristine,
   submitting,
-  component,
   onCancel,
 }) => {
   return submitting || pristine ? (

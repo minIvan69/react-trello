@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import crossImg from "../../assets/cross.svg";
 import {
   EditComponent,
@@ -137,12 +137,6 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
         </CardHeader>
         <CardAuthor>{author}</CardAuthor>
         {isEditDescription ? (
-          // <EditComponent
-          //   onSubmitForm={onSubmitEditDescription}
-          //   isTextArea={true}
-          //   setIsEdit={setIsEditDescription}
-          //   defaultText={content}
-          // />
           <DescriptionFormEdit
             onSubmitForm={onSubmitEditDescription}
             setIsEdit={setIsEditDescription}

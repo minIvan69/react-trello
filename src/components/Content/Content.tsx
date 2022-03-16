@@ -54,18 +54,6 @@ const Content: FunctionComponent = () => {
             localCardId={cardId}
             onClose={closeModal}
             changeId={setCardId}
-            // cards={cards}
-            // authName={authName}
-            // comments={comments}
-            // columns={collumns}
-            // getComments={getCommentsById}
-            // getCardContent={getCardsDataById}
-            // changeTitle={changeTitleCard}
-            // changeDescription={changeCardData}
-            // deleteCard={deleteCard}
-            // changeComment={changeComment}
-            // deleteComment={deleteComment}
-            // addComment={addComment}
           />
         )}
       </Modal>

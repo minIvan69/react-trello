@@ -2,7 +2,6 @@ import { FunctionComponent, useState } from "react";
 import { IModalAuthorProps, ISubmitValue } from "./interfaces";
 import { useDispatch } from "react-redux";
 import { actions } from "../../redux/ducks";
-import { Input } from "..";
 import { Field, Form } from "react-final-form";
 import {
   DisabledButton,
