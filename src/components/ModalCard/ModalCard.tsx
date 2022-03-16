@@ -1,6 +1,11 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import crossImg from "../../assets/cross.svg";
-import { EditComponent, AddComponent, EditDescription } from "..";
+import {
+  EditComponent,
+  AddComponent,
+  EditDescription,
+  DescriptionFormEdit,
+} from "..";
 import {
   Container,
   StyledModalCard,
@@ -132,11 +137,17 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
         </CardHeader>
         <CardAuthor>{author}</CardAuthor>
         {isEditDescription ? (
-          <EditComponent
+          // <EditComponent
+          //   onSubmitForm={onSubmitEditDescription}
+          //   isTextArea={true}
+          //   setIsEdit={setIsEditDescription}
+          //   defaultText={content}
+          // />
+          <DescriptionFormEdit
             onSubmitForm={onSubmitEditDescription}
-            isTextArea={true}
             setIsEdit={setIsEditDescription}
             defaultText={content}
+            changeCancel={onDeleteDescription}
           />
         ) : (
           <EditDescription

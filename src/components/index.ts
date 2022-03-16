@@ -12,4 +12,5 @@ export { default as Menu } from "./Menu/Menu";
 export { default as Input } from "./ui components/Input/Input";
 export { default as TextArea } from "./ui components/TextArea/TextArea";
 export { default as ButtonCheck } from "./ui components/ButtonCheck/Button";
+export { default as DescriptionFormEdit } from "./DescriptionFormEdit/DescriptionFormEdit";
 export { default as Form } from "./Form/Form";

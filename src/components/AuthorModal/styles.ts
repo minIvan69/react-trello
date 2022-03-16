@@ -8,19 +8,6 @@ export const Container = styled.div`
   border-radius: 10px;
 `;
 
-export const StyledInput = styled.input`
-  font-size: 18px;
-  padding: 10px 10px 10px 5px;
-  display: block;
-  width: 300px;
-  border: none;
-  border-bottom: 1px solid #757575;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
 export const StyledButton = styled.button`
   padding: 10px 20px;
   border-radius: 10px;
@@ -37,6 +24,27 @@ export const StyledButton = styled.button`
   }
 `;
 
+export const ErrorText = styled.span`
+  color: red;
+  font-weight: 800;
+}
+`;
+
+export const StyledInput = styled.input`
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #757575;
+  background: #ffffff99;
+  margin-left: 7px;
+  border-radius: 5px;
+
+  &:focus {
+    outline: none;
+  }
+`;
 export const DisabledButton = styled.button`
   padding: 10px 20px;
   border-radius: 10px;

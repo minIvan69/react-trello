@@ -12,26 +12,15 @@ import {
 
 const AddComponent: FunctionComponent<IAddComponentProps> = ({
   onSubmitForm,
-  // onEditInput,
-  // inputValue,
 }) => {
   const onSubmit = (values: ISubmitValue) => {
     onSubmitForm(values.value);
   };
 
   return (
-    // <EditContainer onSubmit={onSubmit}>
-    //   <StyledInput onChange={onEditInput} placeholder="Input your comment" />
-    //   {inputValue === "" ? (
-    //     <DisabledButton disabled={true}> ОК </DisabledButton>
-    //   ) : (
-    //     <StyledButton type={"submit"}>OK</StyledButton>
-    //   )}
-    // </EditContainer>
-
     <Form
       onSubmit={onSubmit}
-      render={({ handleSubmit, form, values }) => (
+      render={({ handleSubmit, form, submitting, pristine, values }) => (
         <StyledForm
           onSubmit={(event) => {
             event.preventDefault();
@@ -45,7 +34,13 @@ const AddComponent: FunctionComponent<IAddComponentProps> = ({
             type="text"
             placeholder="Input your comment"
           />
-          <StyledButton>OK</StyledButton>
+          {submitting || pristine ? (
+            <DisabledButton type="submit" disabled={true}>
+              OK
+            </DisabledButton>
+          ) : (
+            <StyledButton type="submit"> OK </StyledButton>
+          )}
         </StyledForm>
       )}
     />

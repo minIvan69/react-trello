@@ -18,13 +18,16 @@ const FormComponent: FunctionComponent<IForm> = ({
           <Field
             name="value"
             type="text"
+            required
             component={component}
             defaultValue={defaultText}
+            minLength={5}
           />
           <ButtonCheck
             pristine={pristine}
             submitting={submitting}
             onCancel={onCancel}
+            component={component}
           />
         </EditContainer>
       )}
