@@ -41,6 +41,16 @@ const cardSlice = createSlice({
 
       return state;
     },
+
+    deleteCard(state, { payload }: PayloadAction<number>) {
+      const deleteCard = state.findIndex((item) => item.id === payload);
+
+      if (deleteCard !== -1) {
+        state.splice(deleteCard, 1);
+      }
+
+      return state;
+    },
   },
 });
 

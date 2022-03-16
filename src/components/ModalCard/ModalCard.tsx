@@ -22,55 +22,25 @@ import { ICommentsStorage } from "../../interfaces/interfaces";
 
 const ModalCard: FunctionComponent<IModalCardProps> = ({
   localCardId,
-  // comments,
-  // cards,
-  // columns,
-  // getCardContent,
-  // getComments,
-  // changeDescription,
-  // changeTitle,
-  // deleteCard,
-  // deleteComment,
-  // changeComment,
-  // addComment,
+  changeId,
   onClose,
 }) => {
+  const dispatch = useDispatch();
+
   const localCardsContent = useSelector(
     selectors.cards.getCardsById(localCardId)
   );
+  const { title, content } = localCardsContent;
+
   const author = useSelector(selectors.authorNames.getAuthorName);
   const localComments = useSelector(
     selectors.comments.getCommentsById(localCardId)
   );
-
-  const { title, content } = localCardsContent;
-
-  const [colTitle, setColTitle] = useState<string>("");
   const [isEditDescription, setIsEditDescription] = useState(false);
   const [commentId, setCommentId] = useState<number>(-1);
-  const [inputValue, setInputValue] = useState("");
-  const [textAreValue, setTextAreaValue] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [isEditTitle, setIsEditTitle] = useState(false);
   const [isEditComment, setIsEditComment] = useState(false);
-
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   getColTitle();
-  // }, []);
-
-  // useEffect(() => {
-  //   setLocalComments(getComments(localCardId, comments));
-  // }, [comments]);
-
-  const resetInputValue = () => {
-    setInputValue("");
-  };
-
-  const resetTextAreaValue = () => {
-    setTextAreaValue("");
-  };
 
   const onClickTitle = () => {
     setIsEditTitle(true);
@@ -85,16 +55,10 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
     setCommentId(id);
   };
 
-  const onEditInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const onEditTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTextAreaValue(event.target.value);
-  };
-
   const onDeleteDescription = () => {
-    // changeDescription(localCardId, "");
+    dispatch(
+      actions.cards.changeDescription({ cardId: localCardId, newDesc: "" })
+    );
   };
 
   const onAddDescription = () => {
@@ -102,16 +66,10 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
   };
 
   const onSubmitEditTitle = (value: string) => {
-    // event.preventDefault();
-    // changeTitle(localCardId, inputValue);
-    // setIsEdit(false);
-    // resetInputValue();
-    //
     dispatch(
       actions.cards.changeTitle({ cardId: localCardId, newTitle: value })
     );
 
-    // setIsEdit(false);
     setIsEditTitle(false);
   };
 
@@ -126,7 +84,6 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
   };
 
   const onSubmitEditComment = (item: string) => {
-    // changeComment(commentId, inputValue);
     setIsEditComment(false);
     dispatch(
       actions.comments.changeComments({
@@ -147,12 +104,13 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
   };
 
   const onDeleteComment = (id: number) => {
-    // deleteComment(id);
+    dispatch(actions.comments.deleteComments(id));
   };
 
   const onDeleteCard = () => {
-    // deleteCard(localCardId);
-    // onClose(false);
+    onClose(false);
+    dispatch(actions.cards.deleteCard(localCardId));
+    changeId(undefined);
   };
 
   return (
@@ -192,11 +150,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
         <DeleteCard onClick={onDeleteCard}>Delete card</DeleteCard>
         <CardComments>
           <CardTitle>Add comment</CardTitle>
-          <AddComponent
-            onEditInput={onEditInput}
-            onSubmitForm={onSubmitAddComment}
-            inputValue={inputValue}
-          />
+          <AddComponent onSubmitForm={onSubmitAddComment} />
           <CardTitle>Comments:</CardTitle>
           {localComments.map((item, key) => (
             <CommentsContainer key={`${key}_${author}`}>
@@ -205,7 +159,6 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
                 {isEditComment && item.id === commentId ? (
                   <EditComponent
                     onSubmitForm={onSubmitEditComment}
-                    // inputValue={inputValue}
                     setIsEdit={setIsEditComment}
                     defaultText={item.comment}
                   />
@@ -223,7 +176,6 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
           ))}
         </CardComments>
       </StyledModalCard>
-      {/* } */}
     </>
   );
 };

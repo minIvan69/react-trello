@@ -12,8 +12,8 @@ import {
 
 const AddComponent: FunctionComponent<IAddComponentProps> = ({
   onSubmitForm,
-  onEditInput,
-  inputValue,
+  // onEditInput,
+  // inputValue,
 }) => {
   const onSubmit = (values: ISubmitValue) => {
     onSubmitForm(values.value);

@@ -4,7 +4,6 @@ export const StyledModalCard = styled.div`
   position: absolute;
   z-index: 99999;
   min-height: 100%;
-  height: 100%;
   width: 100%;
   background-color: #f4f5f7;
   padding: 20px;

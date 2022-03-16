@@ -30,6 +30,7 @@ export const HeaderLogo = styled.div`
 `;
 
 export const HeaderLogoTxt = styled.div`
+  color: white;
   margin-left: 5px;
 `;
 

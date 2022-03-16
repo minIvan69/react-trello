@@ -29,6 +29,14 @@ const commentSlice = createSlice({
 
       return state;
     },
+
+    deleteComments(state, { payload }: PayloadAction<number>) {
+      const deleteComment = state.findIndex((item) => item.id === payload);
+
+      state.splice(deleteComment, 1);
+
+      return state;
+    },
   },
 });
 

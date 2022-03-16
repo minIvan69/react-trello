@@ -53,7 +53,7 @@ const Content: FunctionComponent = () => {
           <ModalCard
             localCardId={cardId}
             onClose={closeModal}
-
+            changeId={setCardId}
             // cards={cards}
             // authName={authName}
             // comments={comments}
