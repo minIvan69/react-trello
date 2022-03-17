@@ -3,14 +3,13 @@ import { IModalAuthorProps, ISubmitValue } from "./interfaces";
 import { useDispatch } from "react-redux";
 import { actions } from "../../redux/ducks";
 import { Field, Form } from "react-final-form";
+import { ErrorText, StyledButton, StyledForm, StyledInput } from "./styles";
 import {
-  DisabledButton,
-  ErrorText,
-  StyledButton,
-  StyledForm,
-  StyledInput,
-} from "./styles";
-import { log } from "console";
+  composeValidators,
+  minLenghtValue,
+  mustBeString,
+  required,
+} from "../utils/validators";
 
 const AuthorModal: FunctionComponent<IModalAuthorProps> = ({
   visibleModal,
@@ -19,30 +18,10 @@ const AuthorModal: FunctionComponent<IModalAuthorProps> = ({
   const dispatch = useDispatch();
 
   const onSubmit = (value: ISubmitValue) => {
-    console.log(value);
     setVisible(false);
     visibleModal(false);
     dispatch(actions.authorNames.setAuthor(value.value));
   };
-
-  const required = (value: string) =>
-    value ? undefined : "Fill in the required field";
-
-  const mustBeString = (value: string) =>
-    typeof value === "string" ? undefined : `Please enter a name, not a number`;
-
-  const minLenghtValue = (min: number) => (value: string) =>
-    typeof value === "string" && value.length <= min
-      ? "Please enter more than 4 characters"
-      : undefined;
-
-  const composeValidators =
-    (...validators: any[]) =>
-    (value: string) =>
-      validators.reduce(
-        (error, validator) => error || validator(value),
-        undefined
-      );
 
   return visible ? (
     <Form

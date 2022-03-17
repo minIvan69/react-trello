@@ -47,6 +47,7 @@ const Collumns: FunctionComponent<ICollumnProps> = ({
   };
 
   const handleCardClick = (item: number) => {
+    dispatch(actions.localCards.getCardClickID(item));
     cardClick(true, item);
   };
 

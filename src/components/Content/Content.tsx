@@ -6,14 +6,13 @@ import { selectors } from "../../redux/ducks";
 import { Title, ContainerCollumns, Container, ContentCollumns } from "./styles";
 
 const Content: FunctionComponent = () => {
-  const [cardId, setCardId] = useState<number | undefined>(undefined);
+  const cardId = useSelector(selectors.localCards.getLocalCards);
   const collumns = useSelector(selectors.collumns.selectCollumns);
 
   const [setVisible, setIsVisible] = useState(false);
 
-  const modalIsOpen = (item: boolean, card: number) => {
+  const modalIsOpen = (item: boolean) => {
     setIsVisible(item);
-    setCardId(card);
   };
 
   const closeModal = () => {
@@ -49,13 +48,7 @@ const Content: FunctionComponent = () => {
         onRequestClose={closeModal}
         key={cardId}
       >
-        {cardId && (
-          <ModalCard
-            localCardId={cardId}
-            onClose={closeModal}
-            changeId={setCardId}
-          />
-        )}
+        {cardId && <ModalCard localCardId={cardId} onClose={closeModal} />}
       </Modal>
     </>
   );

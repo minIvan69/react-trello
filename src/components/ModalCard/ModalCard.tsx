@@ -27,7 +27,7 @@ import { ICommentsStorage } from "../../interfaces/interfaces";
 
 const ModalCard: FunctionComponent<IModalCardProps> = ({
   localCardId,
-  changeId,
+  // changeId,
   onClose,
 }) => {
   const dispatch = useDispatch();
@@ -113,7 +113,8 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
   const onDeleteCard = () => {
     onClose(false);
     dispatch(actions.cards.deleteCard(localCardId));
-    changeId(undefined);
+    // changeId(undefined);
+    dispatch(actions.localCards.getCardClickID(-1));
   };
 
   return (
