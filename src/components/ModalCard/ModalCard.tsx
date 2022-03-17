@@ -23,7 +23,6 @@ import {
 import { IModalCardProps } from "./interfaces";
 import { actions, selectors } from "../../redux/ducks";
 import { useDispatch, useSelector } from "react-redux";
-import { ICommentsStorage } from "../../interfaces/interfaces";
 
 const ModalCard: FunctionComponent<IModalCardProps> = ({
   localCardId,
@@ -95,16 +94,6 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
     );
   };
 
-  const onSubmitAddComment = (value: string) => {
-    const newComment: ICommentsStorage = {
-      id: new Date().getMilliseconds(),
-      cardId: localCardId,
-      name: author,
-      comment: value,
-    };
-    dispatch(actions.comments.addComments({ newComment }));
-  };
-
   const onDeleteComment = (id: number) => {
     dispatch(actions.comments.deleteComments(id));
   };
@@ -152,7 +141,9 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
         <DeleteCard onClick={onDeleteCard}>Delete card</DeleteCard>
         <CardComments>
           <CardTitle>Add comment</CardTitle>
-          <AddComponent onSubmitForm={onSubmitAddComment} />
+          <AddComponent
+          // onSubmitForm={onSubmitAddComment}
+          />
           <CardTitle>Comments:</CardTitle>
           {localComments.map((item, key) => (
             <CommentsContainer key={`${key}_${author}`}>

@@ -32,7 +32,7 @@ const EditComponent: FunctionComponent<IEditProps> = ({
             defaultValue={defaultText}
           />
           {submitting || pristine ? (
-            <StyledButton type="submit" onClick={onCancel}>
+            <StyledButton type="button" onClick={onCancel}>
               OK
             </StyledButton>
           ) : (

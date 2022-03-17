@@ -1,14 +1,28 @@
 import { FunctionComponent } from "react";
 import { Field, Form } from "react-final-form";
+import { useDispatch, useSelector } from "react-redux";
 import { Input } from "..";
-import { IAddComponentProps, ISubmitValue } from "./interfaces";
+import { ICommentsStorage } from "../../interfaces/interfaces";
+import { actions, selectors } from "../../redux/ducks";
+import { ISubmitValue } from "./interfaces";
 import { StyledButton, DisabledButton, StyledForm } from "./styles";
 
-const AddComponent: FunctionComponent<IAddComponentProps> = ({
-  onSubmitForm,
-}) => {
+const AddComponent: FunctionComponent = () => {
+  const dispatch = useDispatch();
+  const cardId = useSelector(selectors.localCards.getLocalCards);
+  const author = useSelector(selectors.authorNames.getAuthorName);
+
+  const onSubmitAddComment = (value: string) => {
+    const newComment: ICommentsStorage = {
+      id: new Date().getMilliseconds(),
+      cardId: cardId,
+      name: author,
+      comment: value,
+    };
+    dispatch(actions.comments.addComments({ newComment }));
+  };
   const onSubmit = (values: ISubmitValue) => {
-    onSubmitForm(values.value);
+    onSubmitAddComment(values.value);
   };
 
   return (
