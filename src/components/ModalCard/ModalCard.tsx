@@ -42,7 +42,6 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
   );
   const [isEditDescription, setIsEditDescription] = useState(false);
   const [commentId, setCommentId] = useState<number>(-1);
-  const [isEdit, setIsEdit] = useState(false);
   const [isEditTitle, setIsEditTitle] = useState(false);
   const [isEditComment, setIsEditComment] = useState(false);
 
@@ -125,7 +124,7 @@ const ModalCard: FunctionComponent<IModalCardProps> = ({
           {isEditTitle ? (
             <EditComponent
               onSubmitForm={onSubmitEditTitle}
-              setIsEdit={setIsEdit}
+              setIsEdit={setIsEditTitle}
               defaultText={title}
             />
           ) : (

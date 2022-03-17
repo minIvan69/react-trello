@@ -16,18 +16,11 @@ const EditComponent: FunctionComponent<IEditProps> = ({
     onSubmitForm(values.value);
   };
 
-  return isTextArea ? (
+  return (
     <Form
       onSubmitForm={onSubmit}
       onCancel={onCancel}
-      component={TextArea}
-      defaultText={defaultText}
-    />
-  ) : (
-    <Form
-      onSubmitForm={onSubmit}
-      onCancel={onCancel}
-      component={Input}
+      component={isTextArea ? TextArea : Input}
       defaultText={defaultText}
     />
   );

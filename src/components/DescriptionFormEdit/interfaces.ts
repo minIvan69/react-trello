@@ -8,5 +8,5 @@ export interface IEditProps {
 }
 
 export interface ISubmitValue {
-  value: string;
+  description: string;
 }

@@ -16,7 +16,7 @@ const EditComponent: FunctionComponent<IEditProps> = ({
   };
 
   const onSubmit = (values: ISubmitValue) => {
-    onSubmitForm(values.value);
+    onSubmitForm(values.description);
   };
 
   return (
@@ -25,7 +25,7 @@ const EditComponent: FunctionComponent<IEditProps> = ({
       render={({ handleSubmit, submitting, pristine }) => (
         <EditContainer onSubmit={handleSubmit}>
           <Field
-            name="username"
+            name="description"
             type="text"
             component={TextArea}
             placeholder={"Аdd a more detailed description"}

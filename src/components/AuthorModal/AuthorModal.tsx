@@ -10,6 +10,7 @@ import {
   StyledForm,
   StyledInput,
 } from "./styles";
+import { log } from "console";
 
 const AuthorModal: FunctionComponent<IModalAuthorProps> = ({
   visibleModal,
@@ -18,6 +19,7 @@ const AuthorModal: FunctionComponent<IModalAuthorProps> = ({
   const dispatch = useDispatch();
 
   const onSubmit = (value: ISubmitValue) => {
+    console.log(value);
     setVisible(false);
     visibleModal(false);
     dispatch(actions.authorNames.setAuthor(value.value));
@@ -48,7 +50,7 @@ const AuthorModal: FunctionComponent<IModalAuthorProps> = ({
       render={({ handleSubmit, submitting, pristine }) => (
         <StyledForm onSubmit={handleSubmit}>
           <Field
-            name="username"
+            name="value"
             validate={composeValidators(
               required,
               minLenghtValue(4),
@@ -70,9 +72,9 @@ const AuthorModal: FunctionComponent<IModalAuthorProps> = ({
           </Field>
 
           {submitting || pristine ? (
-            <DisabledButton type="submit" disabled={true}>
+            <StyledButton type="submit" disabled={true}>
               Accept
-            </DisabledButton>
+            </StyledButton>
           ) : (
             <StyledButton type="submit"> Accept </StyledButton>
           )}
