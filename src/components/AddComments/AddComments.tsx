@@ -5,7 +5,7 @@ import { Input } from "..";
 import { ICommentsStorage } from "../../interfaces/interfaces";
 import { actions, selectors } from "../../redux/ducks";
 import { ISubmitValue } from "./interfaces";
-import { StyledButton, DisabledButton, StyledForm } from "./styles";
+import { StyledButton, StyledForm } from "./styles";
 
 const AddComponent: FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -43,9 +43,9 @@ const AddComponent: FunctionComponent = () => {
             placeholder="Input your comment"
           />
           {submitting || pristine ? (
-            <DisabledButton type="submit" disabled={true}>
+            <StyledButton type="submit" disabled={true}>
               OK
-            </DisabledButton>
+            </StyledButton>
           ) : (
             <StyledButton type="submit"> OK </StyledButton>
           )}

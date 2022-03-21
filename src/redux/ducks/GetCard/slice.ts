@@ -7,9 +7,7 @@ const localCardSlice = createSlice({
   initialState,
   reducers: {
     getCardClickId(state, { payload }: PayloadAction<number>) {
-      if (payload) {
-        state = payload;
-      }
+      state = payload;
       return state;
     },
   },
