@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyledButton = styled.button`
+  word-break: normal;
   padding: 10px 20px;
   border-radius: 10px;
   border: 2px #000 solid;

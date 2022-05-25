@@ -15,3 +15,9 @@ export const StyledInput = styled.input`
     outline: none;
   }
 `;
+export const ErrorText = styled.input`
+  color: red;
+`;
+export const Wrapper = styled.input`
+  color: red;
+`;

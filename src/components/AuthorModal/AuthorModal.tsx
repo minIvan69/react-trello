@@ -1,56 +1,65 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useState } from "react";
+import { IModalAuthorProps, ISubmitValue } from "./interfaces";
+import { useDispatch } from "react-redux";
+import { actions } from "../../redux/ducks";
+import { Field, Form } from "react-final-form";
+import { ErrorText, StyledButton, StyledForm, StyledInput } from "./styles";
 import {
-  Container,
-  DisabledButton,
-  StyledButton,
-  StyledForm,
-  StyledInput,
-} from "./styles";
-import { IModalAuthorProps } from "./interfaces";
-import { useCookies } from "react-cookie";
+  composeValidators,
+  minLenghtValue,
+  mustBeString,
+  required,
+} from "../utils/validators";
 
 const AuthorModal: FunctionComponent<IModalAuthorProps> = ({
-  authorName,
-  setAuthName,
   visibleModal,
 }) => {
-  const [inputValue, setInputValue] = useState("");
   const [visible, setVisible] = useState(true);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (authorName === undefined) {
-      setVisible(true);
-    }
-  }, [authorName]);
-
-  const [cookie, setCookie] = useCookies(["authName"]);
-
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const onsubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit = (value: ISubmitValue) => {
     setVisible(false);
-    setCookie("authName", inputValue);
-    setAuthName(inputValue);
     visibleModal(false);
+    dispatch(actions.authorNames.setAuthor(value.value));
   };
 
   return visible ? (
-    <Container>
-      <StyledForm onSubmit={onsubmit}>
-        <StyledInput
-          placeholder={"Input your author name"}
-          onChange={onChange}
-        />
-        {inputValue === "" ? (
-          <DisabledButton disabled={true}> Accept </DisabledButton>
-        ) : (
-          <StyledButton type={"submit"}> Accept </StyledButton>
-        )}
-      </StyledForm>
-    </Container>
+    <Form
+      onSubmit={onSubmit}
+      render={({ handleSubmit, submitting, pristine }) => (
+        <StyledForm onSubmit={handleSubmit}>
+          <Field
+            name="value"
+            validate={composeValidators(
+              required,
+              minLenghtValue(4),
+              mustBeString
+            )}
+          >
+            {({ input, meta }) => (
+              <>
+                <StyledInput
+                  {...input}
+                  type="name"
+                  placeholder="Input your author name"
+                />
+                {meta.error && meta.touched && (
+                  <ErrorText>{meta.error}</ErrorText>
+                )}
+              </>
+            )}
+          </Field>
+
+          {submitting || pristine ? (
+            <StyledButton type="submit" disabled={true}>
+              Accept
+            </StyledButton>
+          ) : (
+            <StyledButton type="submit"> Accept </StyledButton>
+          )}
+        </StyledForm>
+      )}
+    />
   ) : null;
 };
 

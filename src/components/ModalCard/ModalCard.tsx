@@ -1,5 +1,11 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
-import { EditComponent, AddComponent, EditDescription } from "..";
+import React, { FunctionComponent, useState } from "react";
+import crossImg from "../../assets/cross.svg";
+import {
+  EditComponent,
+  AddComponent,
+  EditDescription,
+  DescriptionFormEdit,
+} from "..";
 import {
   Container,
   StyledModalCard,
@@ -15,51 +21,30 @@ import {
   CommentsContainer,
 } from "./styles";
 import { IModalCardProps } from "./interfaces";
+import { actions, selectors } from "../../redux/ducks";
+import { useDispatch, useSelector } from "react-redux";
 
-const ModalCard: FunctionComponent<IModalCardProps> = (
-  {
-    // localCardId,
-    // comments,
-    // cards,
-    // columns,
-    // getCardContent,
-    // getComments,
-    // changeDescription,
-    // changeTitle,
-    // deleteCard,
-    // deleteComment,
-    // changeComment,
-    // addComment,
-    // onClose,
-  }
-) => {
-  const [colTitle, setColTitle] = useState<string>("");
+const ModalCard: FunctionComponent<IModalCardProps> = ({
+  localCardId,
+  onClose,
+}) => {
+  const dispatch = useDispatch();
+
+  const { title, content } = useSelector(
+    selectors.cards.getCardsById(localCardId)
+  );
+
+  const author = useSelector(selectors.authorNames.getAuthorName);
+  const localComments = useSelector(
+    selectors.comments.getCommentsById(localCardId)
+  );
   const [isEditDescription, setIsEditDescription] = useState(false);
   const [commentId, setCommentId] = useState<number>(-1);
-  const [inputValue, setInputValue] = useState("");
-  const [textAreValue, setTextAreaValue] = useState("");
-  const [isEdit, setIsEdit] = useState(false);
-
+  const [isEditTitle, setIsEditTitle] = useState(false);
   const [isEditComment, setIsEditComment] = useState(false);
 
-  // useEffect(() => {
-  //   getColTitle();
-  // }, []);
-
-  // useEffect(() => {
-  //   setLocalComments(getComments(localCardId, comments));
-  // }, [comments]);
-
-  const resetInputValue = () => {
-    setInputValue("");
-  };
-
-  const resetTextAreaValue = () => {
-    setTextAreaValue("");
-  };
-
   const onClickTitle = () => {
-    setIsEdit(true);
+    setIsEditTitle(true);
   };
 
   const onClickDescription = () => {
@@ -71,144 +56,119 @@ const ModalCard: FunctionComponent<IModalCardProps> = (
     setCommentId(id);
   };
 
-  const onEditInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const onEditTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTextAreaValue(event.target.value);
-  };
-
   const onDeleteDescription = () => {
-    // changeDescription(localCardId, "");
+    dispatch(
+      actions.cards.changeDescription({ cardId: localCardId, newDesc: "" })
+    );
   };
 
   const onAddDescription = () => {
     setIsEditDescription(true);
   };
 
-  const onSubmitEditTitle = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // changeTitle(localCardId, inputValue);
-    setIsEdit(false);
-    resetInputValue();
+  const onSubmitEditTitle = (value: string) => {
+    dispatch(
+      actions.cards.changeTitle({ cardId: localCardId, newTitle: value })
+    );
+
+    setIsEditTitle(false);
   };
 
-  const onSubmitEditDescription = (
-    event: React.ChangeEvent<HTMLFormElement>
-  ) => {
-    event.preventDefault();
-    // changeDescription(localCardId, textAreValue);
+  const onSubmitEditDescription = (value: string) => {
+    dispatch(
+      actions.cards.changeDescription({
+        cardId: localCardId,
+        newDesc: value,
+      })
+    );
     setIsEditDescription(false);
-    resetTextAreaValue();
   };
 
-  const onSubmitEditComment = (event: React.ChangeEvent<HTMLFormElement>) => {
-    // changeComment(commentId, inputValue);
+  const onSubmitEditComment = (item: string) => {
     setIsEditComment(false);
-    resetInputValue();
-  };
-
-  const onSubmitAddComment = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    event.target.reset();
-    // addComment(localCardId, inputValue);
-    setIsEditComment(false);
-    resetInputValue();
+    dispatch(
+      actions.comments.changeComments({
+        commnetsId: commentId,
+        newComment: item,
+      })
+    );
   };
 
   const onDeleteComment = (id: number) => {
-    // deleteComment(id);
+    dispatch(actions.comments.deleteComments(id));
   };
 
   const onDeleteCard = () => {
-    // deleteCard(localCardId);
-    // onClose(false);
+    onClose(false);
+    dispatch(actions.cards.deleteCard(localCardId));
+    dispatch(actions.localCards.getCardClickId(-1));
   };
 
   return (
     <>
-      {/* {localCardsStorage.map(({ title, author, content }, key) => ( */}
-      <>
-        <StyledModalCard
-        //  key={`${key}_${author}`}
-        >
-          <CardHeader>
-            {/* CardId {localCardId} */}
-            {isEdit ? (
-              <EditComponent
-                onSubmitForm={onSubmitEditTitle}
-                onEditInput={onEditInput}
-                setIsEdit={setIsEdit}
-                inputValue={inputValue}
-                // defaultText={title}
-              />
-            ) : (
-              <CardTitle onClick={onClickTitle}>
-                {/* <Container>{title}</Container> */}
-              </CardTitle>
-            )}
-            <StyledImg
-              src="img/cross.svg"
-              // onClick={() => onClose(false)}
-            />
-          </CardHeader>
-          {/* <CardAuthor>{author}</CardAuthor> */}
-          {isEditDescription ? (
+      <StyledModalCard>
+        <CardHeader>
+          CardId {localCardId}
+          {isEditTitle ? (
             <EditComponent
-              onSubmitForm={onSubmitEditDescription}
-              isTextArea={true}
-              onEditTextArea={onEditTextArea}
-              setIsEdit={setIsEditDescription}
-              textAreaValue={textAreValue}
-              // defaultText={content}
+              onSubmitForm={onSubmitEditTitle}
+              setIsEdit={setIsEditTitle}
+              defaultText={title}
             />
           ) : (
-            <EditDescription
-              onAddDescription={onAddDescription}
-              onClickDescription={onClickDescription}
-              onDeleteDescription={onDeleteDescription}
-              content={"string"}
-            />
+            <CardTitle onClick={onClickTitle}>
+              <Container>{title}</Container>
+            </CardTitle>
           )}
-          <DeleteCard onClick={onDeleteCard}>Delete card</DeleteCard>
-          <CardComments>
-            <CardTitle>Add comment</CardTitle>
-            <AddComponent
-              onEditInput={onEditInput}
-              onSubmitForm={onSubmitAddComment}
-              inputValue={inputValue}
-            />
-            <CardTitle>Comments:</CardTitle>
-            {/* {localComments.map((item, key) => (
-              <CommentsContainer key={`${key}_${author}`}>
-                <CardComments>
-                  <CommentAuthor>{item.name}</CommentAuthor>
-                  {isEditComment && item.id === commentId ? (
-                    <EditComponent
-                      onSubmitForm={onSubmitEditComment}
-                      onEditInput={onEditInput}
-                      inputValue={inputValue}
-                      setIsEdit={setIsEditComment}
-                      defaultText={item.comment}
-                    />
-                  ) : (
-                    <StyledText onClick={() => onClickComment(item.id)}>
-                      {item.comment}
-                    </StyledText>
-                  )}
-                </CardComments>
-                <StyledImgDeleteComment
-                  src={"img/cross.svg"}
-                  onClick={() => onDeleteComment(item.id)}
-                />
-              </CommentsContainer>
-            ))} */}
-          </CardComments>
-        </StyledModalCard>
-      </>
-      ))
-      {/* } */}
+          <StyledImg src={crossImg} onClick={() => onClose(false)} />
+        </CardHeader>
+        <CardAuthor>{author}</CardAuthor>
+        {isEditDescription ? (
+          <DescriptionFormEdit
+            onSubmitForm={onSubmitEditDescription}
+            setIsEdit={setIsEditDescription}
+            defaultText={content}
+            changeCancel={onDeleteDescription}
+          />
+        ) : (
+          <EditDescription
+            onAddDescription={onAddDescription}
+            onClickDescription={onClickDescription}
+            onDeleteDescription={onDeleteDescription}
+            content={content}
+          />
+        )}
+        <DeleteCard onClick={onDeleteCard}>Delete card</DeleteCard>
+        <CardComments>
+          <CardTitle>Add comment</CardTitle>
+          <AddComponent
+          // onSubmitForm={onSubmitAddComment}
+          />
+          <CardTitle>Comments:</CardTitle>
+          {localComments.map((item, key) => (
+            <CommentsContainer key={`${key}_${author}`}>
+              <CardComments>
+                <CommentAuthor>{item.name}</CommentAuthor>
+                {isEditComment && item.id === commentId ? (
+                  <EditComponent
+                    onSubmitForm={onSubmitEditComment}
+                    setIsEdit={setIsEditComment}
+                    defaultText={item.comment}
+                  />
+                ) : (
+                  <StyledText onClick={() => onClickComment(item.id)}>
+                    {item.comment}
+                  </StyledText>
+                )}
+              </CardComments>
+              <StyledImgDeleteComment
+                src={crossImg}
+                onClick={() => onDeleteComment(item.id)}
+              />
+            </CommentsContainer>
+          ))}
+        </CardComments>
+      </StyledModalCard>
     </>
   );
 };

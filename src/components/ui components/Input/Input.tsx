@@ -1,20 +1,12 @@
 import React, { FunctionComponent } from "react";
-import { Button } from "../..";
-import { IInput } from "./interfaces";
+import { FieldRenderProps } from "react-final-form";
 import { StyledInput } from "./styles";
 
-const Input: FunctionComponent<IInput> = ({
-  onEditInput,
-  defaultText,
-  textAreaValue,
-  onCancel,
+const Input: FunctionComponent<FieldRenderProps<string>> = ({
+  input,
+  minLength,
 }) => {
-  return (
-    <>
-      <StyledInput onChange={onEditInput} defaultValue={defaultText} />
-      <Button textAreaValue={textAreaValue} onCancel={onCancel} />
-    </>
-  );
+  return <StyledInput {...input} minLength={minLength} />;
 };
 
 export default Input;

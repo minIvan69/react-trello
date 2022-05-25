@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const ContainerCollumns = styled.div`
   max-width: 300px;
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -35,6 +34,7 @@ export const CollumnsBlock = styled.div`
 `;
 
 export const HeaderBlock = styled.div`
+  word-break: break-word;
   display: flex;
   flex-direction: row;
   padding: 10px 10px;

@@ -1,8 +1,7 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { ICard } from "../../interfaces/interfaces";
-import EditComponent from "../EditComponent/EditComponent";
 import { ICollumnProps } from "./interfaces";
-import { Card } from "..";
+import { Card, EditComponent } from "..";
 import {
   CollumnsBlock,
   ContainerCollumns,
@@ -13,51 +12,43 @@ import {
   AddCard,
   ContentCard,
 } from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import { actions, selectors } from "../../redux/ducks";
 
-const Collumns: FunctionComponent<ICollumnProps> = ({ colId, title }) => {
-  const [inputValue, setInputValue] = useState("");
-  const [isEdit, setIsEdit] = useState(false);
-  const [localCardId, setLocalId] = useState(0);
-  // const [localCards, setLocalCards] = useState<ICard[]>(() =>
-  //   // getCards(colId, cards)
-  // );
+const Collumns: FunctionComponent<ICollumnProps> = ({
+  colId,
+  title,
+  cardClick,
+}) => {
+  const [isEditTitle, setIsEditTitle] = useState(false);
+  const dispatch = useDispatch();
 
-  // const localCards = [
-  //   id:1,
-  //   title:1,
-  //   content:string,string,string;
-  // ]
-
-  // useEffect(() => {
-  //   setLocalCards(() => getCards(colId, cards));
-  // }, [cards]);
-
-  const onAddCard = () => {
-    // addCard(colId);
-  };
-
-  const onClickCard = (item: number) => {
-    // setCardId(item);
-    setLocalId(item);
-  };
+  const localCards = useSelector(selectors.cards.getCardsByCollumnsId(colId));
 
   const onClickTitle = () => {
-    setIsEdit(true);
+    setIsEditTitle(true);
   };
 
-  const onEditInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+  const onSubmitChangeTitles = (value: string) => {
+    dispatch(actions.collumns.changeTitle({ collumnId: colId, title: value }));
+    setIsEditTitle(false);
   };
 
-  const resetInputValue = () => {
-    setInputValue("");
+  const onAddCard = () => {
+    const newCard: ICard = {
+      id: new Date().getMilliseconds(),
+      columnId: colId,
+      title: "default name",
+      content: "",
+      author: title,
+    };
+
+    dispatch(actions.cards.addCard({ newCard }));
   };
 
-  const onSubmitEdit = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // changeTitle(colId, inputValue);
-    setIsEdit(false);
-    resetInputValue();
+  const handleCardClick = (item: number) => {
+    dispatch(actions.localCards.getCardClickId(item));
+    cardClick(true, item);
   };
 
   return (
@@ -65,13 +56,10 @@ const Collumns: FunctionComponent<ICollumnProps> = ({ colId, title }) => {
       <ContainerCollumns>
         <CollumnsBlock>
           <HeaderBlock>
-            {isEdit ? (
+            {isEditTitle ? (
               <EditComponent
-                onSubmitForm={onSubmitEdit}
-                onEditInput={onEditInput}
-                setIsEdit={setIsEdit}
-                inputValue={inputValue}
-                textAreaValue={title}
+                onSubmitForm={onSubmitChangeTitles}
+                setIsEdit={setIsEditTitle}
                 defaultText={title}
               />
             ) : (
@@ -79,23 +67,14 @@ const Collumns: FunctionComponent<ICollumnProps> = ({ colId, title }) => {
             )}
           </HeaderBlock>
           <Content>
-            {/* {localCards.map((item, key) => (
+            {localCards.map((item, key) => (
               <ContentCard
-                onClick={() => {
-                  onClickCard(item.id);
-                  // cardClick(true);
-                }}
+                onClick={() => handleCardClick(item.id)}
                 key={`${item}_${key}`}
               >
-                <Card
-                  key={item.id}
-                  id={item.id}
-                  title={item.title}
-                  // getComments={getCommentsById}
-                  // comments={comments}
-                />
+                <Card key={item.id} id={item.id} title={item.title} />
               </ContentCard>
-            ))} */}
+            ))}
             <AddCard onClick={onAddCard}>
               <AddCardText>Add card</AddCardText>
             </AddCard>

@@ -1,40 +1,22 @@
 import React, { FunctionComponent, useState } from "react";
-import { LOCALSTORAGE_KEYS } from "../../constants";
-import {
-  ICard,
-  ICollumnStorage,
-  ICommentsStorage,
-} from "../../interfaces/interfaces";
+import { useSelector } from "react-redux";
 import Modal from "react-modal";
 import { Collumns, ModalCard } from "..";
-import { IContentProps } from "./interfaces";
-import { initialCollumnsState } from "../../data";
+import { selectors } from "../../redux/ducks";
 import { Title, ContainerCollumns, Container, ContentCollumns } from "./styles";
 
-const Content: FunctionComponent<IContentProps> = ({ authName }) => {
-  const collumns = [
-    {
-      title: "TODO",
-      columnId: 0,
-    },
-    {
-      title: "InProgress",
-      columnId: 1,
-    },
-    {
-      title: "Testing",
-      columnId: 2,
-    },
-    {
-      title: "Done",
-      columnId: 3,
-    },
-  ];
+const Content: FunctionComponent = () => {
+  const cardId = useSelector(selectors.localCards.getLocalCards);
+  const collumns = useSelector(selectors.collumns.selectCollumns);
 
   const [setVisible, setIsVisible] = useState(false);
 
   const modalIsOpen = (item: boolean) => {
     setIsVisible(item);
+  };
+
+  const closeModal = () => {
+    setIsVisible(false);
   };
 
   return (
@@ -47,49 +29,27 @@ const Content: FunctionComponent<IContentProps> = ({ authName }) => {
               <Collumns
                 key={key}
                 title={item.title}
-                colId={item.columnId}
-                // cards={cards}
-                // authName={authName}
-                // setCardId={setCardId}
-                // changeTitle={changeTitle}
-                // getCards={getCardsById}
-                // addCard={addCard}
-                // cardClick={openModal}
-                // comments={comments}
-                // getCommentsById={getCommentsById}
+                colId={item.id}
+                cardClick={modalIsOpen}
               />
             </ContentCollumns>
           ))}
         </ContainerCollumns>
       </Container>
-      {/* <Modal
-        isOpen={modalIsOpen}
+      <Modal
+        isOpen={setVisible}
         style={{
           content: {
             padding: 0,
           },
         }}
         ariaHideApp={false}
-      > */}
-      {/* {cardId && ( */}
-      {/* <ModalCard
-            // localCardId={cardId}
-            // cards={cards}
-            authName={authName}
-            // comments={comments}
-            // columns={collumns}
-            // getComments={getCommentsById}
-            // getCardContent={getCardsDataById}
-            // changeTitle={changeTitleCard}
-            // changeDescription={changeCardData}
-            // deleteCard={deleteCard}
-            // changeComment={changeComment}
-            // deleteComment={deleteComment}
-            // addComment={addComment}
-            // onClose={closeModal}
-          />
-        )} */}
-      {/* </Modal> */}
+        shouldCloseOnOverlayClick={true}
+        onRequestClose={closeModal}
+        key={cardId}
+      >
+        {cardId && <ModalCard localCardId={cardId} onClose={closeModal} />}
+      </Modal>
     </>
   );
 };

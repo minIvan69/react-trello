@@ -1,4 +1,5 @@
 export interface IButton {
-  textAreaValue?: string;
+  submitting: boolean;
+  pristine: boolean;
   onCancel: () => void;
 }

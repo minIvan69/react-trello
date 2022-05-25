@@ -17,7 +17,7 @@ export const AppLogo = styled.div`
   pointer-events: none;
 `;
 
-export const HeaderLogoImg = styled.div`
+export const HeaderLogoImg = styled.img`
   height: 25px;
 `;
 export const HeaderLogo = styled.div`
@@ -30,6 +30,7 @@ export const HeaderLogo = styled.div`
 `;
 
 export const HeaderLogoTxt = styled.div`
+  color: white;
   margin-left: 5px;
 `;
 
@@ -43,7 +44,6 @@ export const UserIcon = styled.div`
 `;
 
 export const StyledUserIcon = styled.div`
-  z-index: 99999;
   height: 40px;
   width: 40px;
   &:hover {

@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState } from "react";
+import logo from "../../assets/trello.svg";
+import userIcon from "../../assets/user-icon.svg";
 import { Menu, AuthorModal } from "..";
-import { IHeaderProps } from "./interfaces";
 import {
   AppHeader,
   HeaderLogo,
@@ -9,10 +10,13 @@ import {
   StyledUserIcon,
 } from "./styles";
 import Modal from "react-modal";
+import { useSelector } from "react-redux";
+import { selectors } from "../../redux/ducks";
 
-const Header: FunctionComponent<IHeaderProps> = ({ authName, setAuthName }) => {
-  const [visible, setVisible] = useState(!authName);
+const Header: FunctionComponent = () => {
+  const authorName = useSelector(selectors.authorNames.getAuthorName);
 
+  const [visible, setVisible] = useState(!authorName);
   const [visibleUser, setVisibleUser] = useState(true);
 
   const onUserClick = (item: boolean) => {
@@ -23,18 +27,17 @@ const Header: FunctionComponent<IHeaderProps> = ({ authName, setAuthName }) => {
     setVisible(item);
     setVisibleUser(true);
   };
+
   return (
     <AppHeader>
       <HeaderLogo>
-        <HeaderLogoImg>
-          <img src="public/assets/trello-logo.svg" alt="logo" />
-        </HeaderLogoImg>
+        <HeaderLogoImg src={logo} alt="logo" />
         <HeaderLogoTxt>Trello</HeaderLogoTxt>
       </HeaderLogo>
 
       <StyledUserIcon>
         <img
-          src="img/user-icon.svg"
+          src={userIcon}
           onClick={() => {
             onUserClick(false);
             openModal(true);
@@ -44,13 +47,9 @@ const Header: FunctionComponent<IHeaderProps> = ({ authName, setAuthName }) => {
       </StyledUserIcon>
 
       <Modal isOpen={visible} ariaHideApp={false}>
-        <AuthorModal
-          authorName={authName}
-          visibleModal={openModal}
-          setAuthName={setAuthName}
-        />
+        <AuthorModal visibleModal={openModal} />
       </Modal>
-      <Menu visible={visibleUser} authorName={authName} />
+      <Menu visible={visibleUser} />
     </AppHeader>
   );
 };

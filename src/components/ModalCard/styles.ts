@@ -3,8 +3,7 @@ import styled from "styled-components";
 export const StyledModalCard = styled.div`
   position: absolute;
   z-index: 99999;
-  min-height: 800px;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   background-color: #f4f5f7;
   padding: 20px;
@@ -93,8 +92,6 @@ export const CommentAuthor = styled.div`
 export const CardAuthor = styled.div`
   font-size: 1.2em;
   font-weight: 600;
-  width: 200px;
-  height: 200px;
 `;
 
 export const CommentsContainer = styled.div`

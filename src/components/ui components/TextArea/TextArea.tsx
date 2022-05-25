@@ -1,26 +1,10 @@
 import React, { FunctionComponent } from "react";
-import { Button } from "../..";
+import { FieldRenderProps } from "react-final-form";
 
-import { ITextArea } from "./interfaces";
 import { StyledTextArea } from "./styles";
 
-const Input: FunctionComponent<ITextArea> = ({
-  onEditTextArea,
-  defaultText,
-  onCancel,
-  textAreaValue,
-}) => {
-  return (
-    <>
-      <StyledTextArea
-        onChange={onEditTextArea}
-        disabled={false}
-        readOnly={false}
-        defaultValue={defaultText}
-      />
-      <Button textAreaValue={textAreaValue} onCancel={onCancel} />
-    </>
-  );
+const TextArea: FunctionComponent<FieldRenderProps<string>> = ({ input }) => {
+  return <StyledTextArea {...input} />;
 };
 
-export default Input;
+export default TextArea;
